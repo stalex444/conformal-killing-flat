@@ -156,8 +156,8 @@ Review history
   2026-11-11: the author decided to keep all nine compared statements, and a section "Who this is for" was
     added to README.md: the entry's relation to the two public four-dimensional Lean developments that state
     parts of this subject. No Lean file, no statement and no metadata field changed.
-  The author has not yet reviewed the compared statements against their informal descriptions
-    (formalization.yaml, review.notes).
+  2026-11-11: the author reviewed the nine compared statements against their informal descriptions
+    (recorded in formalization.yaml, review.notes). No Lean file changed after that review.
 
 Files (sha256)
   4e290aa5b4f5d812bf5d99ea47c7d01042d50c96a4fcc78747ce875ac0b6c1ba  Challenge.lean

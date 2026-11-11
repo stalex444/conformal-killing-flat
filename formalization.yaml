@@ -735,8 +735,9 @@ review:
     the author's project and are not part of this repository; where this
     file or README.md gives an account of the search or of contact with
     another development, it is the author's account from those records.
-    The author has not yet reviewed the compared statements
-    against their informal descriptions. Not peer-reviewed.
+    The author reviewed statements 1-9 against their informal
+    descriptions on 2026-11-11; they are unchanged since. Not
+    peer-reviewed.
 
 alignment:
   namespace: "FlatConformalKilling"
