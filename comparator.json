@@ -1,0 +1,17 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "FlatConformalKilling.conformalKilling_iff_family",
+    "FlatConformalKilling.killing_iff_affine",
+    "FlatConformalKilling.finrank_conformalKilling",
+    "FlatConformalKilling.finrank_killing",
+    "FlatConformalKilling.plane_conformalKilling_not_family",
+    "FlatConformalKilling.div_current_of_conformal",
+    "FlatConformalKilling.currents_conserved_iff_conformalKilling",
+    "FlatConformalKilling.currents_conserved_iff_killing",
+    "FlatConformalKilling.dilation_conformalKilling_not_killing"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}

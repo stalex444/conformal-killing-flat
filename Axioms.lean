@@ -1,0 +1,34 @@
+module
+import Solution
+-- the nine compared statements
+#print axioms FlatConformalKilling.conformalKilling_iff_family
+#print axioms FlatConformalKilling.killing_iff_affine
+#print axioms FlatConformalKilling.finrank_conformalKilling
+#print axioms FlatConformalKilling.finrank_killing
+#print axioms FlatConformalKilling.plane_conformalKilling_not_family
+#print axioms FlatConformalKilling.div_current_of_conformal
+#print axioms FlatConformalKilling.currents_conserved_iff_conformalKilling
+#print axioms FlatConformalKilling.currents_conserved_iff_killing
+#print axioms FlatConformalKilling.dilation_conformalKilling_not_killing
+-- library theorems (not compared)
+#print axioms ConformalKillingFlat.isConformalKilling_family
+#print axioms ConformalKillingFlat.isConformalKilling_iff
+#print axioms ConformalKillingFlat.isKilling_iff
+#print axioms ConformalKillingFlat.killing_le_conformalKilling
+#print axioms ConformalKillingFlat.paramEquiv
+#print axioms ConformalKillingFlat.paramEquivK
+#print axioms ConformalKillingFlat.finite_conformalKilling
+#print axioms ConformalKillingFlat.finite_killing
+#print axioms ConformalKillingFlat.finrank_conformalKilling
+#print axioms ConformalKillingFlat.finrank_killing
+#print axioms ConformalKillingFlat.finrank_conformalKilling_four
+#print axioms ConformalKillingFlat.finrank_killing_four
+#print axioms ConformalKillingFlat.finrank_skew
+#print axioms ConformalKillingFlat.skew_eq_so
+#print axioms ConformalKillingFlat.exists_conformalKilling_two_not_family
+#print axioms ConformalKillingFlat.exists_conformalKilling_lorentzian_two_not_family
+#print axioms ConformalKillingFlat.div_current
+#print axioms ConformalKillingFlat.div_current_of_conformal
+#print axioms ConformalKillingFlat.currents_conserved_iff_conformalKilling
+#print axioms ConformalKillingFlat.currents_conserved_iff_killing
+#print axioms ConformalKillingFlat.dilation_isConformalKilling_not_isKilling

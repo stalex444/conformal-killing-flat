@@ -1,0 +1,178 @@
+conformal-killing-flat -- kernel build record, 2026-11-11
+Toolchain: leanprover/lean4:v4.35.0-rc2
+  lean --version: Lean (version 4.35.0-rc2, arm64-apple-darwin24.6.0, commit 11acb17ec6b07a8f9e9173e6845197929540936b, Release)
+Mathlib rev: 065356127b1dc0016f66b7283ce0ce2c4055aa55
+  lake-manifest: package name conformal_killing_flat; Mathlib and its dependencies at the revisions of the
+    author's other entries at this pin
+  .lake/packages: symlink to the built packages of another entry of the author's at the same pin; not part of
+    the repository
+
+Build: lake build (defaultTargets ConformalKillingFlat, Challenge, Solution) -> Build completed successfully
+  (8946 jobs), exit 0, 2026-11-11, after the last edit to Challenge.lean. Only warnings: the 9 'declaration uses
+  sorry' warnings of Challenge.lean (the compared placeholders, lines 253, 262, 271, 279, 288, 300, 313, 323, 330).
+  No warning in the library or in Solution.
+  Token counts (whole-word grep, per file):
+    Challenge.lean                       sorry=9 admit=0 native_decide=0 axiom=0
+    Solution.lean                        sorry=0 admit=0 native_decide=0 axiom=0
+    ConformalKillingFlat.lean            sorry=0 admit=0 native_decide=0 axiom=0
+    ConformalKillingFlat/Defs.lean       sorry=0 admit=0 native_decide=0 axiom=0
+    ConformalKillingFlat/Calculus.lean   sorry=0 admit=0 native_decide=0 axiom=0
+    ConformalKillingFlat/Family.lean     sorry=0 admit=0 native_decide=0 axiom=0
+    ConformalKillingFlat/Spaces.lean     sorry=0 admit=0 native_decide=0 axiom=0
+    ConformalKillingFlat/Rigidity.lean   sorry=0 admit=0 native_decide=0 axiom=0
+    ConformalKillingFlat/Killing.lean    sorry=0 admit=0 native_decide=0 axiom=0
+    ConformalKillingFlat/Skew.lean       sorry=0 admit=0 native_decide=0 axiom=0
+    ConformalKillingFlat/Dimension.lean  sorry=0 admit=0 native_decide=0 axiom=0
+    ConformalKillingFlat/Control.lean    sorry=0 admit=0 native_decide=0 axiom=0
+    ConformalKillingFlat/Current.lean    sorry=0 admit=0 native_decide=0 axiom=0
+  The root module and the ten library modules use the module system (module / public import / @[expose] public
+  section); Challenge.lean imports Mathlib only; Solution.lean imports Mathlib and ConformalKillingFlat.
+  Axioms.lean (not a build target) also begins with `module`.
+  Challenge.lean is 337 lines and 20 KB. The registry notes a Challenge of more than 300 lines as harder to
+  audit; the length is the opening docstring (120 lines: the statement list, the conventions and the scope)
+  and the two solution spaces, which are defined as submodules with their closure proofs.
+
+#print axioms (lake env lean Axioms.lean, Axioms.lean importing Solution), 2026-11-11:
+  'FlatConformalKilling.conformalKilling_iff_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'FlatConformalKilling.killing_iff_affine' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'FlatConformalKilling.finrank_conformalKilling' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'FlatConformalKilling.finrank_killing' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'FlatConformalKilling.plane_conformalKilling_not_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'FlatConformalKilling.div_current_of_conformal' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'FlatConformalKilling.currents_conserved_iff_conformalKilling' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'FlatConformalKilling.currents_conserved_iff_killing' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'FlatConformalKilling.dilation_conformalKilling_not_killing' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.isConformalKilling_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.isConformalKilling_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.isKilling_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.killing_le_conformalKilling' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.paramEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.paramEquivK' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.finite_conformalKilling' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.finite_killing' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.finrank_conformalKilling' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.finrank_killing' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.finrank_conformalKilling_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.finrank_killing_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.finrank_skew' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.skew_eq_so' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.exists_conformalKilling_two_not_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.exists_conformalKilling_lorentzian_two_not_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.div_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.div_current_of_conformal' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.currents_conserved_iff_conformalKilling' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.currents_conserved_iff_killing' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ConformalKillingFlat.dilation_isConformalKilling_not_isKilling' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Statement identity, Challenge vs Solution (9 theorems, 13 definitions)
+  Solution.lean is generated from Challenge.lean by a script kept outside the repository, which copies the
+    definitions and the statements and replaces each placeholder by a proof term from the library.
+  Scripted comparison: the definitions section is byte-identical in the two files; the nine
+    docstring-plus-signature blocks are identical, in the same order, which is the comparator order.
+  Count gate: the Challenge docstring says "compares exactly these nine statements" and enumerates 1-9;
+    comparator.json has 9 theorem_names in that order; Challenge.lean has 9 theorem declarations.
+  The thirteen carried definitions are stated in full in Challenge.lean and are not listed under
+    definition_names in comparator.json (none is left for the Solution to supply).
+
+Comparator
+  lake comparator --inadvisably-no-sandbox (toolchain bin with nanoda_bin on PATH), from the package root,
+    2026-11-11, after the last edit to Challenge.lean: "Building Challenge / Build completed successfully
+    (8932 jobs) / Exporting #[... FlatConformalKilling.conformalKilling_iff_family,
+    FlatConformalKilling.killing_iff_affine, FlatConformalKilling.finrank_conformalKilling,
+    FlatConformalKilling.finrank_killing, FlatConformalKilling.plane_conformalKilling_not_family,
+    FlatConformalKilling.div_current_of_conformal, FlatConformalKilling.currents_conserved_iff_conformalKilling,
+    FlatConformalKilling.currents_conserved_iff_killing,
+    FlatConformalKilling.dilation_conformalKilling_not_killing, ...] from Challenge / Building Solution /
+    Build completed successfully (8943 jobs) / Exporting #[the same list] from Solution / nanoda kernel accepts
+    the solution / Lean default kernel accepts the solution / Your solution is okay!", exit 0.
+  Not recorded here: the registry's own submission workflow. It is dispatched on the public commit by
+    .github/workflows/palomar-preflight.yml, and its result is in that repository's Actions runs, not in
+    this file. No bubblewrap sandbox on macOS (hence --inadvisably-no-sandbox) for the local run above.
+  Not run: a build from a fresh clone with lake exe cache get (the build above uses the shared prebuilt
+    packages); the registry's licence detection and rendering steps.
+
+Metadata
+  formalization.yaml validates against the v0.4 schema (0 errors).
+  Provenance: the registry contract (scripts.submission_contract at PalomarSubmission 14aa8d6b, the pipeline
+    commit the preflight workflow pins) loads the metadata and derives result_origin source-based (9 sources,
+    6 related formalizations). The pipeline's non-executing Lean source check (scripts.source_requirements,
+    same commit) on a copy of the files to be committed: 14 files, 0 issues.
+  Two scripts of the author's, kept outside this repository (scripted checks, not a human review): one derives
+    the same origin from the sources list and finds the comparator names, the alignment table, the Challenge
+    theorem count and the docstring's count in agreement; the other finds every compared name declared in
+    Challenge.lean and Solution.lean and the Challenge importing Mathlib only.
+
+Review history
+  2026-11-11: the library was written with AI assistance in two parts (classification; currents), each followed
+    by an AI-assisted adversarial review with compiled probe files. Changes made on the reviews' findings: an
+    unused hypothesis on the signature was removed from the theorem that the members of the family are
+    conformal Killing and from the characterization of conformal Killing fields by conserved currents
+    (statement 7); the docstrings were made exact about the class of tensor fields and about the dimensions
+    in which statements 7 and 8 have content.
+  2026-11-11: an AI-assisted prior-formalization search, by statement; its results are recorded in the
+    Challenge docstring, README.md and formalization.yaml.
+  2026-11-11: assembly of Challenge.lean, Solution.lean, Axioms.lean and comparator.json. The library gained
+    the two linear equivalences with the parameter spaces, finite-dimensionality of the two solution spaces,
+    the identification of the antisymmetric matrices with Mathlib's so, and a second example in the
+    Lorentzian plane (not compared).
+  2026-11-11: an AI-assisted reading of the sources (listed in formalization.yaml with how each was read).
+    The provenance paragraph of the Challenge docstring was rewritten from that reading, a paragraph on the
+    sources and the proof was added, and citations were added to the application paragraph. No definition, no
+    statement and no proof changed; Solution.lean is byte-identical to the file before these edits. The
+    build, the axioms print, the comparator and the metadata checks recorded above are those re-run after
+    these edits.
+  2026-11-11: an AI-assisted review of the assembled package, organised by the registry's published review
+    prompts (metadata, statement alignment, definitions, literature, proof account), with compiled probe files
+    and with each source that was read and the named files of each related repository re-checked, found no
+    false sentence about a source or
+    about another repository. Changes made on its findings:
+    - Statement 5 was strengthened. The family it excludes is no longer restricted to antisymmetric matrices
+      A, so the statement now says what its description said: the witness is not family eta a A lam b for any
+      a, A, lam, b. Challenge.lean and Solution.lean changed in that statement and its docstring; in the
+      library the two control theorems of ConformalKillingFlat/Control.lean were restated in the same way,
+      with the proofs they already had (cubicField_ne_family and nullCubicField_ne_family hold for every A).
+      No definition and no other compared statement changed.
+    - The Challenge docstring was shortened from about 160 to 120 lines: the detailed account of prior
+      formalizations, the list of what is not formalized and the notes on sources and proof were moved to
+      README.md, where each already was, and one pointer was left for each. The second group of statements
+      was retitled "Conserved currents: which fields give them"; the scope now says that none of
+      statements 6-9 depends on statements 1-5, that 6-8 hold in every dimension and 9 for n >= 1.
+    - Dates that had been taken from the report of the prior-formalization search were replaced by the dates
+      of the commits, with links; README.md and formalization.yaml now say that the search report and the
+      reports of the drafting sessions are working records of the author's project and are not part of the
+      repository; two descriptions that rested on the search report alone were replaced by descriptions
+      checked against the files at the linked commits.
+    - Smaller corrections: two bibliographic entries were made uniform; a search limit and a 2021
+      discussion thread on formalizing Liouville's theorem were added to README.md, and a note on the
+      section of Schottenloher behind statement 2 to README.md and formalization.yaml; the root docstring
+      of the library was corrected for div_current; the paragraph of this file on the registry's workflow
+      was reworded.
+    The build, the axioms print, the comparator and the metadata checks recorded above are those re-run
+    after these changes.
+  2026-11-11: a second AI-assisted pass verified those changes and found one docstring left behind by
+    the strengthening of statement 5 (the description of the matrix A in the definition of the family)
+    and six smaller wording points; all were corrected, the Solution was regenerated, and the build, the
+    axioms print and the comparator were re-run afterwards (the results recorded above).
+  The author has not yet reviewed the compared statements against their informal descriptions
+    (formalization.yaml, review.notes).
+
+Files (sha256)
+  4e290aa5b4f5d812bf5d99ea47c7d01042d50c96a4fcc78747ce875ac0b6c1ba  Challenge.lean
+  fb8c2785a36a72fdaba02fbb879422aeeb3a049e3a22ae2410a6e7b14d2447ab  Solution.lean
+  070bc2fdfafa44f902fb2ab071c0cbd5f9fa616fa738658f1396e1225feefbc5  ConformalKillingFlat.lean
+  ce958bbf1105a69f3d810271449ce716bff0e3889f29a03fec9c1b64a538225b  ConformalKillingFlat/Defs.lean
+  f22344552f19c2f76f933ee052ceea19c32d32852b538e2b68f5003f14c4da73  ConformalKillingFlat/Calculus.lean
+  6e61d5b9919d3f83475d29e89944531317ab2399d85e13c3bdb72394ac4e7897  ConformalKillingFlat/Family.lean
+  7c9022ebc76982fe841e4c89aa571caeed111e3c938b00ee475a5931e3a8e413  ConformalKillingFlat/Spaces.lean
+  2227ec70f889f99d71b63a893d6117899e60a7886e8a63767cb829bb775b3107  ConformalKillingFlat/Rigidity.lean
+  f083279c24a689e921e4b10627fc9a9b1af5b2f0221f66945486fd2ba3d61e0f  ConformalKillingFlat/Killing.lean
+  e7bb7280c6580dd3f7269795831e74791df9c352293fea6f30b664787c7778bb  ConformalKillingFlat/Skew.lean
+  4fcd2e245fe08f60e07d1fee02c237954ba88af5b291ecfb3a424677ffbd610d  ConformalKillingFlat/Dimension.lean
+  08e177e08350192ac7566252680cd13aadd5339ce433dddd85951c39ce746463  ConformalKillingFlat/Control.lean
+  165b62b8c18f838e8e63a335a15e3e5a688a8b5a3f9f6d5472f1f37e8b711a2b  ConformalKillingFlat/Current.lean
+  1bfe945843af9b00c495a1f91d18517c2ad3e7cb59dc493120921a748fdb6b00  Axioms.lean
+  5028b92c9d0fcefa1e7317a766c7737b8d95a9dd2a47692bb25b0fbb3454c4f7  comparator.json
+  0b632a4fae2f44d99df624696d6a64c203fcbba721945909350e03af6b0543dc  lakefile.toml
+  8dc8d6f560141069d9073e370611716ef77ada0da8ffa37e2149f44b2e63ac7a  lean-toolchain
+  70c8f16d3054930e8e62698facd3246e58a49025367c83bc3c6ebc3edf8e58ee  lake-manifest.json
+  (README.md, formalization.yaml, LICENSE, .github/ are hashed at commit time; see git.)

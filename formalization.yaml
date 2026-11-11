@@ -1,0 +1,793 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Conformal Killing and Killing fields of flat pseudo-Euclidean space: classification for n >= 3 in every signature, the two dimension counts, and the divergence of the current of a symmetric tensor field"
+  description: >-
+    Kernel-checked proofs, in Lean 4 + Mathlib, of nine statements about
+    R^n with a diagonal metric eta whose entries are +1 or -1 (every
+    signature). A covector field omega is conformal Killing when it is C^3
+    and d_i omega_j + d_j omega_i = 2 phi eta_ij for some function phi, and
+    Killing when it is C^3 and d_i omega_j + d_j omega_i = 0. (1) For
+    n >= 3 the conformal Killing fields are exactly the members of an
+    explicit family: translations, rotations (an antisymmetric matrix), the
+    dilation and the special conformal fields. (2) In every dimension the
+    Killing fields are exactly the affine fields a + A x with A
+    antisymmetric. (3) For n >= 3 the conformal Killing fields form a real
+    vector space of finite dimension (n+1)(n+2)/2. (4) In every dimension
+    the Killing fields form a real vector space of finite dimension
+    n(n+1)/2. (5) A control for the hypothesis n >= 3 of (1): in the
+    Euclidean plane there is a conformal Killing field that is not a
+    member of the family for any values of its parameters, the matrix
+    being any real matrix, antisymmetric or not (the witness in the proof
+    is the real and imaginary parts of z^3). Statements (6)-(9) are
+    statements about conserved currents: they say which fields give
+    conserved currents. (6)
+    If a tensor field T and a covector field omega are differentiable at a
+    point x, T(x) is symmetric and the conformal Killing equation holds at
+    x with factor phi, then the current J^i = sum_j T^ij omega_j satisfies
+    div J = (div T) . omega + phi tr_eta T at x. (7) A C^3 field is
+    conformal Killing if and only if the current of every differentiable,
+    symmetric, divergence-free, eta-trace-free tensor field against it is
+    divergence-free. (8) A C^3 field is Killing if and only if the current
+    of every differentiable, symmetric, divergence-free tensor field
+    against it is divergence-free. (9) For n >= 1 the dilation
+    omega_j = eta_j x_j is conformal Killing and is not Killing. The
+    Challenge imports Mathlib only and carries the definitions its
+    statements use (the partial derivative, the two equations, the family,
+    the two solution spaces as submodules, the divergences, the current and
+    the metric trace), each with its convention. Statements (1)-(4) are
+    classical: (1) and (3) are the classification of the conformal Killing
+    fields of R^{p,q}, p + q >= 3, and the count of their parameters
+    (Schottenloher 2008, Theorem 1.7; Ginsparg 1988, section 1.1), the
+    infinitesimal counterpart of Liouville's theorem on conformal maps; (2)
+    and (4) are the Killing fields of flat space and their number. (6) is
+    the standard identity behind the conserved currents of a trace-free
+    stress tensor, and (5) and (9) are standard examples. In (7) and (8)
+    the direction from the equation to conserved currents is (6); the
+    other direction was not found stated in the sources read for this
+    entry, is elementary (it is proved by testing on constant tensor
+    fields, so it is a pointwise fact of linear algebra) and is not claimed
+    as new. No statement is claimed as a new theorem. Scope: diagonal
+    metrics with entries +1 or -1 (a general constant metric, reached by a
+    linear change of coordinates, is not formalized); C^3 covector fields
+    on all of R^n; the numbers in (3) and (4) are dimensions of real vector
+    spaces, with no Lie bracket and no isomorphism with so(p+1,q+1) stated;
+    the finite conformal maps (Liouville's theorem itself) are not
+    formalized; nothing is said about compactly supported tensor fields in
+    (7) and (8). Prior formalization, recorded under
+    related_formalizations: the identity (6), with its corollary for
+    conserved trace-free tensors, is formalized for n = 4 and signature
+    (1,3), for tensors of tempered distributions, in
+    github.com/openai/math; special cases are in the Yang-Mills release
+    github.com/yang-mills-group/OpenAI-YM-20261028, in
+    facebookresearch/atlas-lean and in TauCetiProject/TauCeti. In a dated
+    search no formalization was found of (1)-(5) or of the direction of (7)
+    and (8) from conserved currents to the equation. Application (cited; no
+    compared statement asserts it): for n = 4 and a Lorentzian signature
+    the spaces of (3) and (4) have dimensions 15 and 10, the infinitesimal
+    conformal symmetries and the infinitesimal isometries of Minkowski
+    space, and (6) is the conservation law for the currents of a conserved
+    symmetric stress tensor against them, trace-free in the conformal case.
+  authors:
+    - "Stephanie Alexander"
+  license: "MIT"
+  responsible_maintainers:
+    - "Stephanie Alexander"
+
+classification:
+  # math.DG / 53C18 (conformal structures), 53B30 (local differential
+  # geometry of Lorentz and indefinite metrics), 35N05 (overdetermined
+  # systems of PDEs with constant coefficients): the classification and the
+  # dimension counts. math-ph, gr-qc and hep-th / 70S10 (symmetries and
+  # conservation laws), 81T40 (conformal field theories), 83A05 (special
+  # relativity): the current identity and the cited application. No
+  # compared statement is a physical claim.
+  arxiv: ["math.DG", "math-ph", "gr-qc", "hep-th"]
+  msc2020: ["53C18", "53B30", "35N05", "70S10", "81T40", "83A05"]
+
+sources:
+  - title: "A Mathematical Introduction to Conformal Field Theory"
+    authors:
+      - "M. Schottenloher"
+    id: "Lecture Notes in Physics 759, 2nd edition, Springer, Berlin Heidelberg, 2008, Chapter 1"
+    # Bibliographic record Crossref-verified 2026-11-11: DOI
+    # 10.1007/978-3-540-68628-6. READ 2026-11-11: Chapter 1, sections
+    # 1.3-1.4 (pp. 13-21), in the Internet Archive capture of the chapter
+    # file on the author's university page (a text extraction of the PDF;
+    # the file carries the Springer running heads and is dated 23-08-08),
+    # web.archive.org/web/20140308070012/http://www.mathematik.uni-muenchen.de:80/~schotten/LNP-cft-pdf/01_978-3-540-68625-5_Ch01_23-08-08.pdf
+    # Chapter 2 of the same set of files was searched for a dimension count
+    # and none was found there. The Springer edition itself was not opened.
+    type: "book"
+    location: "https://doi.org/10.1007/978-3-540-68628-6"
+    relationship: "formalizes"
+    note: >-
+      Scoped to statements 1, 2, 5 and 9. The source works with smooth
+      vector fields X on an open subset M of R^{p,q}, calls X a conformal
+      Killing field when its local flow is conformal (Definition 1.3), and
+      shows that then X_{mu,nu} + X_{nu,mu} = kappa g_{mu nu} for a smooth
+      function kappa (Theorem 1.4). Theorem 1.6 gives the equation
+      (n - 2) kappa_{,mu nu} + g_{mu nu} Delta kappa = 0 for the factor,
+      and section 1.4.1 concludes for n > 2 that kappa is affine. Theorem
+      1.7 (p. 17): every conformal Killing field on a connected open subset
+      of R^{p,q}, p + q > 2, is X(q) = 2<q,b>q - <q,q>b + lambda q + c +
+      omega q with b, c in R^n, lambda real and omega in o(p,q); the text
+      before it notes by direct calculation that the quadratic field solves
+      the equation. Statement 1 is this classification for C^3 covector
+      fields on all of R^n, stated as an equivalence, with the equation
+      itself as the definition. The Killing fields (factor zero) are
+      determined in section 1.4.1 as X(q) = c + omega q with omega in
+      o(p,q), which is statement 2 in lowered form. That section is headed
+      "Case 1: n = p + q > 2"; its argument for the fields with factor
+      zero does not use the restriction, and statement 2 is proved here in
+      every dimension. Section 1.4.2: in the
+      Euclidean plane a conformal Killing field satisfies the
+      Cauchy-Riemann equations and is a holomorphic function; the witness
+      of statement 5 is the holomorphic function z^3. The dilatations
+      X(q) = lambda q have a constant nonzero factor (section 1.4.1), the
+      content of statement 9. Section 1.4.3 gives the conformal Killing
+      fields of the Minkowski plane in light-cone variables; the library's
+      example for the Lorentzian plane (not compared) is of that form.
+      Exercise 1.8 states that the Lie algebra of the conformal Killing
+      fields is isomorphic to o(p+1,q+1); no dimension is printed in the
+      pages read. The proof here was not written from this text; see
+      fidelity.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "Applied Conformal Field Theory"
+    authors:
+      - "P. Ginsparg"
+    id: "arXiv:hep-th/9108028v1"
+    # READ 2026-11-11 as arXiv:hep-th/9108028v1 (sections 1.1 and 1.2). The
+    # arXiv record gives the journal reference "Fields, Strings and Critical
+    # Phenomena (Les Houches, Session XLIX, 1988), ed. by E. Brezin and J.
+    # Zinn-Justin, 1989"; the printed volume was not opened and no page
+    # numbers are quoted from it.
+    type: "paper"
+    location: "https://arxiv.org/abs/hep-th/9108028"
+    relationship: "formalizes"
+    note: >-
+      Scoped to statements 1 and 3, with the remark behind statement 5.
+      Section 1.1, for flat space of signature (p,q), d = p + q: the
+      infinitesimal condition (1.2), d_mu eps_nu + d_nu eps_mu =
+      (2/d)(d . eps) eta_{mu nu}; its consequence (1.3); for d > 2 the
+      third derivatives of eps vanish, so eps is at most quadratic, and the
+      solutions are listed as a) translations, b) rotations, c) scale
+      transformations and d) special conformal transformations
+      eps_mu = b_mu x^2 - 2 x_mu b.x; the text then counts
+      p + q + (1/2)(p+q)(p+q-1) + 1 + (p+q) = (1/2)(p+q+1)(p+q+2)
+      generators and identifies the algebra with that of SO(p+1,q+1).
+      Statement 3 is that count, stated as the dimension of the real
+      vector space of C^3 solutions on R^n. Section 1.2: for d = 2 the
+      condition becomes the Cauchy-Riemann equations and the local algebra
+      is infinite dimensional, which is why statement 1 needs n >= 3.
+      Regularity and domain are not specified in the source.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "Lecture Notes on General Relativity"
+    authors:
+      - "M. Blau"
+    id: "Lecture notes, Universitaet Bern; the version marked 'Last update November 10, 2026'"
+    # READ 2026-11-11 in the PDF linked from the author's page
+    # (blau.itp.unibe.ch/newlecturesGR.pdf, fetched that day; text
+    # extraction): section 9.6 at (9.81)-(9.82); section 10.1 at
+    # (10.11)-(10.12); section 10.2, (10.14)-(10.18); section 10.3 at
+    # (10.19)-(10.26); section 14.1 at (14.2)-(14.4); section 7.7 at
+    # (7.122). Section and equation numbers are those of that version; the
+    # notes are revised from time to time.
+    type: "other"
+    location: "http://www.blau.itp.unibe.ch/GRLecturenotes.html"
+    relationship: "formalizes"
+    note: >-
+      Lecture notes on the author's web page. Scoped to statements 2, 4, 6
+      and 9 and to one direction of statements 7 and 8. (9.81)-(9.82): in
+      inertial coordinates on Minkowski space the Killing condition
+      d_a V_b + d_b V_a = 0 is solved by V_a = omega_{ab} z^b + eps_a with
+      omega antisymmetric (statement 2; the notes assert the solution
+      without proof). (14.2)-(14.4): a Killing field is determined by its
+      value and first derivative at a point, so there are at most
+      n + n(n-1)/2 = n(n+1)/2 independent ones, and n-dimensional Minkowski
+      space attains this number (statement 4). (10.11)-(10.12) and
+      (10.15)-(10.16): for a symmetric T and a conformal Killing vector C
+      with nabla_mu C_nu + nabla_nu C_mu = 2 sigma g_{mu nu},
+      nabla_mu (T^{mu nu} C_nu) = (nabla_mu T^{mu nu}) C_nu +
+      sigma T^{mu nu} g_{mu nu}, which vanishes when T is conserved and
+      trace-free, and for a Killing vector when T is conserved; this is
+      statement 6 and the direction of statements 7 and 8 from the equation
+      to conserved currents. The notes work on a general metric with the
+      covariant derivative; the statements here are the flat case with a
+      diagonal metric. (10.19): the dilatation D = z^a d_a satisfies
+      d_a D_b + d_b D_a = 2 eta_{ab} (statement 9, with factor 1).
+      Sections 10.3 and 7.7 are the source of the cited application: the
+      10 Killing and 5 further conformal Killing vectors of
+      four-dimensional Minkowski space, and the vanishing trace of the
+      Maxwell energy-momentum tensor in four dimensions (7.122). The
+      direction of statements 7 and 8 from conserved currents to the
+      equation is not in the sections read.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "The Conformal Bootstrap"
+    authors:
+      - "D. Simmons-Duffin"
+    id: "New Frontiers in Fields and Strings (TASI 2015), World Scientific, pp. 1-74"
+    # Bibliographic record Crossref-verified 2026-11-11: DOI
+    # 10.1142/9789813149441_0001. READ 2026-11-11 as arXiv:1602.07982v1,
+    # "TASI Lectures on the Conformal Bootstrap" (section 2.4 and the
+    # opening of section 3, equations (18)-(25), with footnote l); equation
+    # numbers are the arXiv version's. The published chapter was not read.
+    type: "paper"
+    location: "https://doi.org/10.1142/9789813149441_0001"
+    relationship: "formalizes"
+    note: >-
+      Scoped to statement 6 and to one direction of statements 7 and 8, in
+      flat Euclidean space. (18)-(20): the charge built from
+      eps_nu T^{mu nu} is conserved whenever
+      0 = d_mu (eps_nu T^{mu nu}) = (1/2)(d_mu eps_nu + d_nu eps_mu)
+      T^{mu nu}, "or" d_mu eps_nu + d_nu eps_mu = 0, the Killing equation,
+      with solutions the translations and rotations (21). (22)-(24): when
+      the stress tensor is traceless "we can relax the requirement (20)
+      further to" d_mu eps_nu + d_nu eps_mu = c(x) delta_{mu nu}, the
+      conformal Killing equation, with the additional solutions the
+      dilatation and the special conformal fields. The text presents the
+      two equations as the conditions under which the currents are
+      conserved and shows that they suffice; it does not state or prove
+      that conservation for all such tensors forces the equation. Footnote
+      l notes the additional solutions in two dimensions. Read as the
+      arXiv version, not the published chapter.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "Lectures on Conformal Field Theory"
+    authors:
+      - "J. D. Qualls"
+    id: "arXiv:1511.04074v2"
+    # READ 2026-11-11 as arXiv:1511.04074v2 (Lecture 2, sections 2.1, 2.2
+    # and 2.4: equations (2.5)-(2.15) and the count of generators; the list
+    # of references of that lecture).
+    type: "paper"
+    location: "https://arxiv.org/abs/1511.04074"
+    relationship: "background"
+    note: >-
+      The textbook derivation written out step by step, for d >= 3: (2.13),
+      2 d_mu d_nu eps_rho = (2/d)(-eta_{mu nu} d_rho + eta_{rho mu} d_nu +
+      eta_{nu rho} d_mu)(d . eps), is the formula proved in the library as
+      ConformalKillingFlat.second_deriv; (2.8)-(2.9) give that d . eps is at
+      most linear and eps at most quadratic; section 2.4 counts
+      1 + d + d + d(d-1)/2 = (d+2)(d+1)/2 generators. The lecture names
+      chapter 2 of Blumenhagen and Plauschinn and chapter 4 of Di
+      Francesco, Mathieu and Senechal as its main references. Not used to
+      write the proofs here.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "The conformal bootstrap: Theory, numerical techniques, and applications"
+    authors:
+      - "D. Poland"
+      - "S. Rychkov"
+      - "A. Vichi"
+    id: "Reviews of Modern Physics 91 (2019), 015002"
+    # Bibliographic record Crossref-verified 2026-11-11: DOI
+    # 10.1103/RevModPhys.91.015002. READ 2026-11-11 as arXiv:1805.04405v3
+    # (section III.A, "Conformal transformations", with its footnotes, and
+    # the reference-list entry for Monge 1850); the journal version was not
+    # read.
+    type: "paper"
+    location: "https://doi.org/10.1103/RevModPhys.91.015002"
+    relationship: "background"
+    note: >-
+      Current review of the subject in which the classification is used.
+      Section III.A of arXiv:1805.04405v3 says that in any dimension
+      d >= 3 a theorem of Liouville gives every conformal transformation as
+      a composition of translations, rotations, dilatations and
+      inversions, that the resulting conformal group is a Lie group of
+      dimension (d+1)(d+2)/2, and that the two-dimensional case is special
+      because every holomorphic function defines a conformal
+      transformation; its reference list cites pp. 609-616 of Monge (1850)
+      for Liouville's theorem. Read as the arXiv version. Not used in any
+      proof here.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "Extension au cas des trois dimensions de la question du tracé géographique (Note VI)"
+    authors:
+      - "J. Liouville"
+    id: "In G. Monge, Application de l'analyse à la géométrie, 5th edition, revised, corrected and annotated by J. Liouville, Bachelier, Paris, 1850, pp. 609-616"
+    # READ 2026-11-11 in the OCR text of the Internet Archive scan
+    # archive.org/details/applicationdelan00mong (University of Illinois
+    # copy): the table of contents entry, sections 1-2 of the Note
+    # (pp. 609-610) and its closing paragraphs (p. 616). The OCR of the
+    # formulas is poor; the statements were read from the prose.
+    type: "book"
+    location: "https://archive.org/details/applicationdelan00mong"
+    relationship: "background"
+    note: >-
+      Liouville's theorem on conformal maps, for three-dimensional
+      Euclidean space: the Note asks for the correspondences of space in
+      which corresponding infinitely small parts are similar, with a ratio
+      that may vary from point to point; its section 2 treats the case of
+      ratio one (equal or symmetric figures), and its closing paragraphs
+      conclude that the formula given by the transformation by reciprocal
+      radii (inversion) is the most general one. The middle of the Note
+      was not read. It concerns finite maps in dimension three and one
+      signature. No compared statement formalizes it: statements 1 and 3
+      are the infinitesimal counterpart, in every dimension n >= 3 and
+      every signature, and the theorem on finite maps is listed as not
+      formalized.
+    license: "unknown"
+    author_endorsement: "n/a"
+  - title: "Conformal Field Theory"
+    authors:
+      - "P. Di Francesco"
+      - "P. Mathieu"
+      - "D. Sénéchal"
+    id: "Graduate Texts in Contemporary Physics, Springer, New York, 1997"
+    # Bibliographic record Crossref-verified 2026-11-11: DOI
+    # 10.1007/978-1-4612-2256-9. NOT OPENED. Named because Qualls gives its
+    # chapter 4 as a main reference for the derivation and Simmons-Duffin
+    # and Poland-Rychkov-Vichi list it as a standard text.
+    type: "book"
+    location: "https://doi.org/10.1007/978-1-4612-2256-9"
+    relationship: "background"
+    note: >-
+      The standard textbook of the subject, not opened for this entry. No
+      statement about its content is made here beyond what Qualls reports:
+      that his derivation of the infinitesimal conformal transformations
+      in d >= 3 follows its chapter 4.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "A new improved energy-momentum tensor"
+    authors:
+      - "C. G. Callan"
+      - "S. Coleman"
+      - "R. Jackiw"
+    id: "Annals of Physics 59 (1970), no. 1, 42-73"
+    # Bibliographic record Crossref-verified 2026-11-11: DOI
+    # 10.1016/0003-4916(70)90394-5. NOT OPENED. Cited as Blau's section
+    # 22.4 (footnote 64) cites it.
+    type: "paper"
+    location: "https://doi.org/10.1016/0003-4916(70)90394-5"
+    relationship: "background"
+    note: >-
+      The cited application only. Not opened; named as the paper that
+      Blau's notes (section 22.4, footnote 64) cite for the question of
+      when an energy-momentum tensor can be improved to a symmetric,
+      conserved, trace-free one, so that the dilatation current is
+      T^{ab} x_b, the current of statement 6 for the dilation. Not used in
+      any proof.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+
+related_formalizations:
+  - id: "https://github.com/openai/math/blob/4eaee87548250b2682affda7d05d947c05554bae/lean/OAI/Analysis/TemperedDistribution/ConformalIdentities.lean"
+    relationship: "other"
+    note: >-
+      PRIOR FORMALIZATION OF THE IDENTITY OF STATEMENT 6 IN ONE DIMENSION
+      AND SIGNATURE. The file is
+      lean/OAI/Analysis/TemperedDistribution/ConformalIdentities.lean in
+      github.com/openai/math, read on 2026-11-11 at commit
+      4eaee87548250b2682affda7d05d947c05554bae (its declaration outline,
+      and lines 144-160, 301-332 and 400-452 in full). The commit read is
+      dated 2026-10-30; in its history the file has one commit,
+      adc7f1241b42e322a6451854ab7e4b4c146bf78a ("Initial commit"), dated
+      2026-10-06.
+      Setting:
+      Spacetime := Fin 4 -> R, metric signs (+,-,-,-), tensors
+      Fin 4 -> Fin 4 -> tempered distributions, complex-valued covector
+      fields of temperate growth. Its predicate ConformalKilling is
+      d_mu X_nu + d_nu X_mu = (1/2) metric_{mu nu} (div X). Its theorem
+      conformal_current_divergence proves, for a symmetric tensor T and a
+      temperate conformal Killing field X, that the divergence of the
+      current is (1/4)(div X) trace T + sum_nu sign_nu X_nu (div T)_nu,
+      and conformal_current_conserved concludes that the current is
+      conserved when T is conserved and trace-free. That is the identity
+      of statement 6 and the direction of statement 7 from the equation to
+      conserved currents, for n = 4 and signature (1,3), in a
+      distributional setting that statement 6 does not cover (statement 6
+      is pointwise, for tensor fields differentiable at a point). The same
+      file shows that translations and Lorentz generators satisfy its
+      predicate (AffineKillingVector.conformalKilling). Not found in that
+      file: other dimensions or signatures, the dilation or a special
+      conformal field, a classification of the solutions, a dimension
+      count, or the direction from conserved currents to the equation.
+      Contact (the author's account, from working records that are not
+      part of this repository; see review.notes): the file was found by
+      the prior-formalization search of 2026-11-11, made while the library
+      here was being written; the report of the session that wrote the
+      classification names the author's own unpublished four-dimensional
+      development as the reference it read, neither that report nor the
+      report on the currents names this repository, and the file was first
+      opened for this entry after the library and the compared statements
+      were complete. Nothing of it is imported or reproduced. Recorded as
+      "other", not "independent", because the report of the search, which
+      quotes both declarations, was in hand when the Challenge was
+      assembled.
+  - id: "https://github.com/yang-mills-group/OpenAI-YM-20261028/tree/3456e5e75cf8d4cd558955a5c7638fba2d68f464"
+    relationship: "other"
+    note: >-
+      SPECIAL CASES, ALL ON EUCLIDEAN R^4. The Yang-Mills release, read on
+      2026-11-11 at commit 3456e5e75cf8d4cd558955a5c7638fba2d68f464, the
+      commit with which that repository begins, dated 2026-11-05 (the declaration
+      outlines of the three files named here and lines 136-154 of the
+      first; the other Lean files of the release were searched for the
+      words "killing" and "conformal" and were not read).
+      YM/Next/MAXWELL/Current.lean: a predicate named Killing on fields
+      Axis -> E4 -> R that is the conformal Killing equation in components
+      (off-diagonal antisymmetry, all diagonal derivatives equal), and the
+      lemma current_div, the divergence of the current of the polarized
+      Maxwell stress (symmetric and trace-free there) against such a
+      field, for smooth closed two-forms on an open set.
+      YM/Next/MAXWELL/Affine.lean: drift_K, radial_K and skew_K show that
+      translations, the dilation and rotations satisfy the predicate.
+      YM/Work/A01/Conserve.lean: the Killing equation (killing), constant
+      fields and rotations as solutions (killing_const, killing_orbital),
+      and the theorem divergence, conservation of the current of a
+      conserved symmetric stress against a Killing field inside
+      correlation functions at separated points. These are instances of
+      the direction of statements 6-8 from the equation to conserved
+      currents, for one tensor or one class of tensors, in dimension four
+      and Euclidean signature. Not found in the release, in the three
+      files or by that word search: a classification of the solutions of
+      either predicate, a dimension count, a special conformal field,
+      other dimensions or signatures, the trace term for a tensor with
+      nonzero trace, or the direction from conserved currents to the
+      equation. Contact (the author's account): before the library here
+      was written, the author's project had read YM/Next/MAXWELL/Current.lean
+      and YM/Work/A01/Conserve.lean and had built a separate add-on library
+      on the release's definitions (a conformal version of the release's
+      theorem divergence; it is not part of this entry). This entry does
+      not import the release and does not use its definitions: the fields
+      here are functions Fin n -> R in every dimension, with a diagonal
+      metric of any signature. Recorded as "other", not "independent",
+      because of that contact.
+  - id: "https://github.com/facebookresearch/atlas-lean/tree/18d1aa399b6ebaa8cd9c4a48795b43f6734c3785"
+    relationship: "other"
+    note: >-
+      RELATED, NOT THESE THEOREMS. Read on 2026-11-11 at commit
+      18d1aa399b6ebaa8cd9c4a48795b43f6734c3785 (declaration outlines of the
+      two files named here).
+      MathlibExt/Geometry/Manifold/Riemannian/Killing/VectorSpace.lean:
+      Killing vector fields of a Riemannian manifold, specialized to a
+      finite-dimensional real inner product space
+      (Manifold.isKillingVectorField_vectorSpace_iff); constant fields are
+      Killing (isKillingVectorField_const) and a continuous linear field
+      is Killing if and only if it is skew
+      (isKillingVectorField_continuousLinearMap_iff). This overlaps the
+      easy direction of statement 2 in positive-definite signature; it
+      does not state that every Killing field is affine and has no
+      dimension count.
+      v1/Atlas/IntroductionToPartialDifferentialEquations/code/CM14/WaveEnergy.lean:
+      for the energy-momentum tensor of the scalar wave equation on
+      Minkowski space, compatible_current_divergence and
+      compatible_current_divergence_free give the divergence of the
+      current of a vector field and its vanishing when the deformation
+      tensor vanishes, an instance of statement 6 for one tensor and
+      Killing fields; other declarations of that file are left unproved.
+      The Killing file was added in commit
+      6a576f39873cb4e541c1e6a460a409f4b848f43d, dated 2026-10-28; the
+      wave-equation file has one commit in the history read,
+      9c4f77036677e8aa896a0c1af4662384bb41ab55, dated 2026-08-24. No
+      conformal Killing field was found in the repository by the search
+      of 2026-11-11 (Sourcegraph's index of Lean files; the coverage is in
+      this repository's README.md).
+      Contact (the author's account, as in the note on openai/math): found by
+      that search; the reports of the sessions that wrote the Lean here
+      name no file of it. Nothing of it is imported or reproduced.
+  - id: "https://github.com/TauCetiProject/TauCeti/tree/1e668f5e55bc20f2eb87f4ba49b48833470290d1/TauCeti/Geometry/Manifold/Riemannian/Killing"
+    relationship: "other"
+    note: >-
+      RELATED, NOT THESE THEOREMS. Read on 2026-11-11 at commit
+      1e668f5e55bc20f2eb87f4ba49b48833470290d1, dated 2026-11-09
+      (declaration outline of Basic.lean; in Flow.lean and Converse.lean
+      of the same directory, the two theorems named below and a word
+      search). The directory was written in three commits dated
+      2026-11-04 to 2026-11-08 (3e389ef8b2114fa643ab3d939e71ea99ab748085,
+      2856b93cb8b144ce491ce422bd499c2f21aa496e,
+      37853b557381de79a4744a7aba900611e9406fa4). The general
+      theory of Killing fields on Riemannian manifolds: the structure
+      IsKillingField (vanishing Lie derivative of the metric), closure
+      under sums and scalar multiples, the characterization through a
+      metric-compatible torsion-free connection, the second covariant
+      derivative in terms of curvature, Killing fields as Jacobi fields
+      along geodesics, that the flow of a Killing field preserves the
+      metric (IsKillingField.inner_mfderiv_flowOf, in Flow.lean), and
+      that a smooth field whose local flow preserves tangent norms is
+      Killing (isKillingField_of_eventually_norm_mfderiv_flowOf, in
+      Converse.lean). No classification on flat space, no dimension count
+      and no conformal Killing field was found in the three files. Three
+      later commits to that directory, the last
+      528f652a8cacf295804b3932c295aba1eab1cc9b dated 2026-11-11, were not
+      read. Contact (the author's account, as in the note on openai/math): found
+      by the prior-formalization search of 2026-11-11; the reports of the
+      sessions that wrote the Lean here name no file of it. Nothing of it
+      is imported or reproduced.
+  - id: "https://github.com/stalex444/pdt-em-source-selection/tree/1c9ba637b5e664a88b6487d463515587616476e1"
+    relationship: "other"
+    note: >-
+      THE CITED APPLICATION, BY THE SAME AUTHOR; NO MODULE IS SHARED.
+      Registry record PALOMAR-2026-10-14-000009 (selection of the
+      electromagnetic source tensor). It proves, on a fixed flat Lorentz
+      frame in dimension four, that covariance and zero trace, or
+      conservation on source-free Maxwell first jets alone, select the
+      Maxwell stress among symmetric quadratic sources up to scale. The
+      Maxwell stress is thus a symmetric, trace-free tensor that is
+      conserved on source-free fields, the kind of tensor to which
+      statement 6 applies with a conformal Killing field. That entry works
+      with sources as functions of the field components and with first
+      jets, not with tensor fields T on R^n as here; the passage from one
+      setting to the other is not formalized in either entry, and neither
+      entry imports the other.
+  - id: "https://github.com/leanprover-community/mathlib4/tree/065356127b1dc0016f66b7283ce0ce2c4055aa55"
+    relationship: "builds-on"
+    note: >-
+      Mathlib declarations used by the compared statements include fderiv,
+      ContDiff, DifferentiableAt, Matrix, Matrix.transpose, Pi.single,
+      Submodule, Module.Finite and Module.finrank. Mathlib at the pin has
+      no Killing or conformal Killing vector field (its declarations named
+      Killing concern the Killing form of a Lie algebra, and its conformal
+      declarations concern conformal linear maps and conformal maps), which
+      is why the two equations are written out as definitions in the
+      Challenge. The library identifies its space of antisymmetric
+      matrices with Mathlib's LieAlgebra.Orthogonal.so (Fin n) R as
+      submodules (skew_eq_so); no Lie bracket on the solution spaces is
+      defined.
+
+status:
+  scope: >-
+    Formalized: nine compared theorems, in comparator order, namespace
+    FlatConformalKilling (see the description for their content), on
+    thirteen definitions carried by the Challenge: Vec, Tens, IsSignature,
+    partialD, IsConformalKilling, IsKilling, family, conformalKilling,
+    killing, divT, current, divJ, traceEta. Proved in the repository, not
+    compared (namespace ConformalKillingFlat): every member of the family
+    is conformal Killing, with no hypothesis on eta
+    (isConformalKilling_family); the linear equivalences of the solution
+    spaces with their parameter spaces (paramEquiv, for n >= 3 and entries
+    +1 or -1; paramEquivK, every n); the dimension n(n-1)/2 of the
+    antisymmetric matrices (finrank_skew) and their identification with
+    Mathlib's so (skew_eq_so); the values 15 and 10 in dimension four
+    (finrank_conformalKilling_four, finrank_killing_four); Killing fields
+    are conformal Killing (killing_le_conformalKilling); a second control
+    for n >= 3, of the same form as statement 5, in the Lorentzian plane
+    (exists_conformalKilling_lorentzian_two_not_family); the product rule
+    for the divergence of a current without any symmetry or Killing
+    hypothesis (div_current). Not formalized: general constant metrics, by
+    a linear change of coordinates; solutions of regularity below C^3; the
+    vector-field form of the statements; the Lie algebra structure on the
+    solution spaces and the isomorphism of the conformal Killing fields
+    with so(p+1,q+1); the finite conformal transformations, that is,
+    Liouville's theorem on conformal maps; fields on proper open subsets
+    of R^n; dimension two beyond the two controls; compactly supported
+    tensor fields in statements 7 and 8.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["Anthropic Claude (Fable-class, 2026)"]
+      framework: "Claude Code"
+      tool_setup: >-
+        AI-assisted proof planning, proof drafting and error-loop iteration
+        against lake build, in separate sessions for the classification
+        and for the currents; an AI-assisted adversarial review of each
+        part, which tested the statements with compiled probe files; an
+        AI-assisted prior-formalization search (which found the four
+        developments recorded under related_formalizations); AI-assisted
+        assembly of the Challenge, the Solution and this metadata, with an
+        AI-assisted reading of the sources recorded above.
+      cost:
+        wall_time: "one day, 2026-11-11"
+        spend_usd: "subscription-based"
+        hardware: "local machine, Apple silicon"
+      prompting_notes: >-
+        The library generalizes a four-dimensional development of the
+        author's (dimension four, signature (3,1); not published) to every
+        dimension and every diagonal signature. The proofs were written
+        from a written plan of the classical integrability argument and
+        iterated against the compiler. The review of the classification
+        established by compiled examples that the hypothesis n >= 3 is
+        needed. The review of the currents found that the hypothesis on
+        the signature was not needed in statement 7, and the statement and
+        its proof were changed accordingly; an unused signature hypothesis
+        was also removed from the library theorem that the members of the
+        family are conformal Killing. The sources were read after the Lean
+        was written, and the account of them in the Challenge docstring,
+        the README and this file was written from that reading.
+    - method: "manual"
+      models: []
+      framework: "n/a"
+      tool_setup: >-
+        Author-directed scope (the decision to prove the general statement
+        and to assemble this entry, and acceptance of the entry for
+        submission).
+      cost:
+        wall_time: "included in the day above"
+        spend_usd: "not tracked"
+        hardware: "local machine"
+      prompting_notes: "n/a"
+  spend_usd: "subscription-based"
+  notes: >-
+    Human-directed, machine-verified workflow: the author fixes scope and
+    decides what is submitted; AI assistance drafts and repairs proofs; the
+    Lean kernel is the acceptance criterion.
+
+fidelity:
+  divergences: >-
+    (a) Fields. The sources work with vector fields X^mu; the statements
+    here are for the covector field omega_j = eta_j X^j (index lowered with
+    the diagonal metric). In this form the Killing equation does not
+    involve the metric, and the family of statement 1 is the lowered form
+    of Schottenloher's X(q) = 2<q,b>q - <q,q>b + lambda q + c + omega q,
+    with b_j = eta_j b^j, a_j = eta_j c^j and A_ij = eta_j omega^j_i, which
+    is antisymmetric exactly when omega is in o(p,q). The statements are
+    not restated for vector fields. (b) Definition. Schottenloher defines a
+    conformal Killing field by its local flow being conformal and derives
+    the equation X_{mu,nu} + X_{nu,mu} = kappa g_{mu nu} (Theorem 1.4);
+    here the equation is the definition, with kappa = 2 phi and phi an
+    arbitrary function (no regularity is assumed of phi; it is determined
+    by omega when eta has a nonzero entry). The passage from conformal
+    flows to the equation is not formalized. (c) Regularity and domain.
+    Schottenloher's Theorem 1.7 is for smooth fields on a connected open
+    subset of R^{p,q}; statements 1-4 are for C^3 fields on all of R^n.
+    Neither contains the other: less regularity is assumed here, and
+    nothing is said here about fields on a proper open subset. C^3 is
+    what the proof uses (symmetry of third derivatives); nothing is
+    claimed about C^2 or weaker solutions. (d) Metric. The metric is a
+    function eta : Fin n -> R read as a diagonal matrix; IsSignature eta
+    says each entry is 1 or -1, in any order, so every signature (p,q)
+    occurs, with the coordinates in any order. Schottenloher's g^{p,q} is
+    diag(1,...,1,-1,...,-1). A general nondegenerate constant metric is
+    not treated. Statements 6 and 7 assume nothing about eta, so there eta
+    may have zero or other real entries. (e) Statement 1 is an
+    equivalence; the source proves that every conformal Killing field has
+    the stated form and notes by direct calculation that the quadratic
+    field solves the equation. In dimension two the equivalence fails:
+    statement 5 shows this for the Euclidean plane, and a library example
+    (not compared) for the Lorentzian plane. In dimension one every C^3
+    field satisfies the equation, so the equivalence fails there as well
+    (not proved in the repository). (f) Statements 3 and 4 are dimensions of real vector
+    spaces of solutions (Module.finrank, with Module.Finite stated
+    alongside, since Module.finrank is 0 by convention for a module that is
+    not finite); the divisions of natural numbers are exact. The sources
+    count generators (Ginsparg; Qualls), bound the number of independent
+    Killing fields (Blau) or give the dimension of the conformal group
+    (Poland, Rychkov and Vichi). No Lie bracket is defined and no
+    isomorphism with so(p+1,q+1) or with the Poincare algebra is stated.
+    No compared statement tests the hypothesis n >= 3 of statement 3. For
+    n = 0 statement 4 says that the zero space has dimension 0. (g)
+    Statement 5 asserts that an example exists in the Euclidean plane
+    with eta = (1,1); the witness in the proof is the field (Re z^3,
+    Im z^3). It says that the example is not
+    family eta a A lam b for any a, lam, b and any real matrix A; the
+    condition that A be antisymmetric, which statement 1 carries, is not
+    imposed, so statement 5 is stronger than a control restricted to
+    antisymmetric A. The general fact that the conformal Killing fields
+    of the plane are the holomorphic functions is not formalized. (h) Statement 6 is pointwise: T and omega are
+    differentiable at x, T(x) is symmetric, and the equation holds at x
+    with a real number phi. Tensors are n x n real matrices with upper
+    indices, the divergence is taken on the first index, and the current
+    is J^i = sum_j T^ij omega_j. Blau's (10.16) is for a general metric
+    with the covariant derivative; the flat diagonal case is the one
+    formalized. (i) Statements 7 and 8 quantify over all differentiable
+    tensor fields T : R^n -> matrices that are symmetric and
+    divergence-free (and eta-trace-free in statement 7) at every point.
+    Constant tensor fields are admitted, and the direction from conserved
+    currents to the equation uses only the constant fields E_ij + E_ji and
+    eta_j E_ii - eta_i E_jj, so it is a pointwise fact of linear algebra.
+    Nothing is said about compactly supported or decaying tensor fields,
+    for which that direction would need a different argument. The
+    hypothesis that omega is C^3 stands outside the equivalence because it
+    is part of the definitions of the two classes. For n <= 1 and a metric
+    with entries 1 or -1 both sides of statement 7 hold for every C^3
+    field. That direction was not found stated in the sources read; it is
+    not claimed as new. (j) Statement 9: the field omega_j = eta_j x_j is
+    the lowered form of the dilation X = x; its conformal factor is 1; the
+    hypothesis n >= 1 is needed for "not Killing". (k) The proofs were
+    written from a plan of the classical integrability argument, not from
+    the text of one source. The second-derivative formula is Qualls's
+    (2.13); the vanishing of the Hessian of the factor for n >= 3 is
+    obtained from the symmetry of third derivatives by choosing a third
+    index, where Schottenloher contracts with the metric (Theorem 1.6 and
+    section 1.4.1); the conclusion is reached by showing that the field
+    agrees with the member of the family having the same value, first
+    derivative and gradient of the factor at the origin, where
+    Schottenloher subtracts the quadratic and the dilation field and
+    appeals to the Killing case. (l) Sources. Schottenloher's chapter was
+    read in an Internet Archive capture of the chapter file on the
+    author's university page, not in the Springer edition; Ginsparg,
+    Simmons-Duffin, Qualls and Poland-Rychkov-Vichi were read in their
+    arXiv versions; Blau's notes in the version of November 10, 2026;
+    Liouville's Note in the OCR text of a scan. Di Francesco, Mathieu and
+    Senechal and Callan, Coleman and Jackiw were not opened. (m) The
+    application paragraph is cited, not a theorem; no compared statement
+    asserts it.
+
+review:
+  status: "self-assessed"
+  reviewers:
+    - "Stephanie Alexander"
+  notes: >-
+    The axioms of every compared declaration were printed, the Challenge
+    and Solution statements and definitions were checked identical by
+    script, and the registry comparator was run locally (BUILD.txt). An
+    AI-assisted adversarial review (Anthropic Claude, in Claude Code,
+    under the author's direction) was applied to the classification and to
+    the currents on 2026-11-11, each with compiled probe files that tested
+    the statements for vacuity, for the necessity of the hypothesis
+    n >= 3 and for unused hypotheses; its findings were applied. An
+    AI-assisted prior-formalization search was made the same day, and an
+    AI-assisted reading of the sources followed the assembly of the
+    package. A further AI-assisted review, organised by the registry's
+    published review prompts (metadata, statement alignment, definitions,
+    literature, proof account), with compiled probe files and with each
+    source that was read and the named files of each related repository
+    re-checked, was applied to the
+    assembled package on 2026-11-11, and the corrections it asked for,
+    other than the author's own review of the statements, were made:
+    statement 5 was strengthened so that it excludes the family for every
+    real matrix A, as its description said (the stronger statement was
+    already proved in the library); the other corrections were to text
+    and metadata, among them commit dates in place of dates taken from a
+    report, a shorter Challenge docstring, and the wording of the build
+    record. A second AI-assisted pass verified those changes and
+    corrected one docstring and six smaller wording points. The reports of
+    these reviews and their probe files, of the
+    prior-formalization search and of the sessions that wrote the Lean are working records of
+    the author's project and are not part of this repository; where this
+    file or README.md gives an account of the search or of contact with
+    another development, it is the author's account from those records.
+    The author has not yet reviewed the compared statements
+    against their informal descriptions. Not peer-reviewed.
+
+alignment:
+  namespace: "FlatConformalKilling"
+  statements:
+    - source: "Schottenloher 2008, Theorem 1.7 (p. 17), with Theorems 1.4 and 1.6 and section 1.4.1; Ginsparg 1988, section 1.1, equations (1.2)-(1.3) and the list a)-d)"
+      lean: "FlatConformalKilling.conformalKilling_iff_family"
+      module: "Solution"
+      status: "proved"
+      note: "For n >= 3 and a diagonal metric with entries +1 or -1, a covector field is conformal Killing (C^3) if and only if it is a member of the explicit family: translations, rotations, the dilation, special conformal fields."
+    - source: "Schottenloher 2008, section 1.4.1 (the fields with conformal Killing factor zero); Blau, Lecture Notes on General Relativity, (9.81)-(9.82)"
+      lean: "FlatConformalKilling.killing_iff_affine"
+      module: "Solution"
+      status: "proved"
+      note: "In every dimension a covector field is Killing (C^3) if and only if it is a + A x with A antisymmetric."
+    - source: "Ginsparg 1988, section 1.1: the count (1/2)(p+q+1)(p+q+2) of generators; also Qualls, section 2.4, and Poland-Rychkov-Vichi 2019, section III.A"
+      lean: "FlatConformalKilling.finrank_conformalKilling"
+      module: "Solution"
+      status: "proved"
+      note: "For n >= 3 the conformal Killing fields form a finite-dimensional real vector space of dimension (n+1)(n+2)/2."
+    - source: "Blau, Lecture Notes on General Relativity, (14.4) and the sentence after it on n-dimensional Minkowski space"
+      lean: "FlatConformalKilling.finrank_killing"
+      module: "Solution"
+      status: "proved"
+      note: "In every dimension the Killing fields form a finite-dimensional real vector space of dimension n(n+1)/2."
+    - source: "Standard example: in the Euclidean plane the conformal Killing fields are the holomorphic functions (Schottenloher 2008, section 1.4.2; Ginsparg 1988, section 1.2); the instance z^3 is written out here"
+      lean: "FlatConformalKilling.plane_conformalKilling_not_family"
+      module: "Solution"
+      status: "proved"
+      note: "A control for n >= 3 in statement 1: in the Euclidean plane, eta = (1,1), there is a conformal Killing field that is not family eta a A lam b for any a, A, lam, b, where A is any real matrix, antisymmetric or not."
+    - source: "Blau, Lecture Notes on General Relativity, (10.11)-(10.12) and (10.15)-(10.16); Simmons-Duffin, arXiv:1602.07982v1, (19)"
+      lean: "FlatConformalKilling.div_current_of_conformal"
+      module: "Solution"
+      status: "proved"
+      note: "At a point where T and omega are differentiable, T is symmetric and the conformal Killing equation holds with factor phi: div (T . omega) = (div T) . omega + phi tr_eta T."
+    - source: "From the equation to conserved currents: Blau, (10.15)-(10.16); Simmons-Duffin, arXiv:1602.07982v1, (19)-(23). From conserved currents to the equation: not found stated in the sources read; elementary, proved here by testing on constant tensor fields"
+      lean: "FlatConformalKilling.currents_conserved_iff_conformalKilling"
+      module: "Solution"
+      status: "proved"
+      note: "A C^3 field is conformal Killing if and only if the current of every differentiable, symmetric, divergence-free, eta-trace-free tensor field against it is divergence-free."
+    - source: "From the equation to conserved currents: Blau, (10.11)-(10.12); Simmons-Duffin, arXiv:1602.07982v1, (18)-(20). From conserved currents to the equation: not found stated in the sources read; elementary, proved here by testing on constant tensor fields"
+      lean: "FlatConformalKilling.currents_conserved_iff_killing"
+      module: "Solution"
+      status: "proved"
+      note: "A C^3 field is Killing if and only if the current of every differentiable, symmetric, divergence-free tensor field against it is divergence-free."
+    - source: "Standard example: the dilatation (Schottenloher 2008, section 1.4.1; Blau, (10.19); Simmons-Duffin, arXiv:1602.07982v1, (24))"
+      lean: "FlatConformalKilling.dilation_conformalKilling_not_killing"
+      module: "Solution"
+      status: "proved"
+      note: "For n >= 1 the dilation omega_j = eta_j x_j is conformal Killing and is not Killing."
+
+acknowledgements: >-
+  Built on Mathlib and the Lean 4 toolchain; thanks to the leanprover
+  community. Developed with AI assistance (Anthropic Claude, in Claude
+  Code) under the author's direction.
