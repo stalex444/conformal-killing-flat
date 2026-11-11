@@ -153,6 +153,9 @@ Review history
     the strengthening of statement 5 (the description of the matrix A in the definition of the family)
     and six smaller wording points; all were corrected, the Solution was regenerated, and the build, the
     axioms print and the comparator were re-run afterwards (the results recorded above).
+  2026-11-11: the author decided to keep all nine compared statements, and a section "Who this is for" was
+    added to README.md: the entry's relation to the two public four-dimensional Lean developments that state
+    parts of this subject. No Lean file, no statement and no metadata field changed.
   The author has not yet reviewed the compared statements against their informal descriptions
     (formalization.yaml, review.notes).
 

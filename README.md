@@ -20,6 +20,32 @@ new. No statement here is claimed as a new theorem. The identity of statement 6 
 formalized in one dimension and signature, and special cases of the currents are formalized
 elsewhere; see "Prior formalization" below.
 
+## Who this is for
+
+Formal developments of quantum field theory that carry a stress tensor and its Ward identities.
+Two public Lean developments state parts of this subject in four dimensions:
+
+- The Yang–Mills release
+  [`yang-mills-group/OpenAI-YM-20261028`](https://github.com/yang-mills-group/OpenAI-YM-20261028/tree/3456e5e75cf8d4cd558955a5c7638fba2d68f464)
+  states the conformal Killing equation on Euclidean `ℝ⁴`, shows that translations, the dilation and
+  rotations satisfy it, proves the current identity for the Maxwell stress, and proves that the
+  current of a conserved symmetric stress against a Killing field is conserved inside correlation
+  functions.
+- [`openai/math`](https://github.com/openai/math/blob/4eaee87548250b2682affda7d05d947c05554bae/lean/OAI/Analysis/TemperedDistribution/ConformalIdentities.lean)
+  proves the identity of statement 6 for `n = 4` and signature `(1,3)`.
+
+In neither was a statement found of which fields solve the equation, of how many there are, of
+the special conformal fields, or of the converse of the current statement (search of 2026-11-11;
+"Prior formalization" below says where it looked and what it could not search). Statements 1–5
+give the solutions and their number in every dimension `n ≥ 3` and every signature, and
+statements 6–9 give the identity and its converse in every dimension, as statements that import
+Mathlib only and that such a development can be checked against.
+
+The entry may also serve formalizations of conformal field theory, where `(n + 1)(n + 2)/2` is the
+dimension of the conformal algebra (the algebra itself is not formalized here), and work on
+Killing fields in Lean's differential geometry, which at present treats Riemannian manifolds in
+general and not the flat classification.
+
 ## The compared statements (namespace `FlatConformalKilling`)
 
 `Challenge.lean` imports Mathlib only and carries its definitions. Points and covectors are
