@@ -38,9 +38,8 @@ def IsConformalKilling (η : Vec n) (ω : Vec n → Vec n) : Prop :=
 def IsKilling (ω : Vec n → Vec n) : Prop :=
   ContDiff ℝ 3 ω ∧ ∀ x i j, partialD ω x i j + partialD ω x j i = 0
 
-/-- The explicit family: translations `a`, rotations `A` (antisymmetric in the classification; the definition
-allows any real matrix), the dilation
-`lam`, and special conformal fields `b`. -/
+/-- The explicit family: translations `a`, rotations `A` (antisymmetric in the classification;
+the definition allows any real matrix), the dilation `lam`, and special conformal fields `b`. -/
 def family (η : Vec n) (a : Vec n) (A : Tens n) (lam : ℝ) (b : Vec n) : Vec n → Vec n :=
   fun x j => a j + ∑ i, A i j * x i + lam * η j * x j
     + (2 * (∑ i, b i * x i) * η j * x j - b j * ∑ i, η i * x i ^ 2)

@@ -9,7 +9,7 @@ Mathlib rev: 065356127b1dc0016f66b7283ce0ce2c4055aa55
 
 Build: lake build (defaultTargets ConformalKillingFlat, Challenge, Solution) -> Build completed successfully
   (8946 jobs), exit 0, 2026-11-11, after the last edit to Challenge.lean. Only warnings: the 9 'declaration uses
-  sorry' warnings of Challenge.lean (the compared placeholders, lines 253, 262, 271, 279, 288, 300, 313, 323, 330).
+  sorry' warnings of Challenge.lean (the compared placeholders, lines 256, 265, 274, 282, 291, 303, 316, 326, 333).
   No warning in the library or in Solution.
   Token counts (whole-word grep, per file):
     Challenge.lean                       sorry=9 admit=0 native_decide=0 axiom=0
@@ -28,8 +28,8 @@ Build: lake build (defaultTargets ConformalKillingFlat, Challenge, Solution) -> 
   The root module and the ten library modules use the module system (module / public import / @[expose] public
   section); Challenge.lean imports Mathlib only; Solution.lean imports Mathlib and ConformalKillingFlat.
   Axioms.lean (not a build target) also begins with `module`.
-  Challenge.lean is 337 lines and 20 KB. The registry notes a Challenge of more than 300 lines as harder to
-  audit; the length is the opening docstring (120 lines: the statement list, the conventions and the scope)
+  Challenge.lean is 340 lines and 20 KB. The registry notes a Challenge of more than 300 lines as harder to
+  audit; the length is the opening docstring (123 lines: the statement list, the conventions and the scope)
   and the two solution spaces, which are defined as submodules with their closure proofs.
 
 #print axioms (lake env lean Axioms.lean, Axioms.lean importing Solution), 2026-11-11:
@@ -105,8 +105,9 @@ Metadata
 Review history
   2026-11-11: the library was written with AI assistance in two parts (classification; currents), each followed
     by an AI-assisted adversarial review with compiled probe files. Changes made on the reviews' findings: an
-    unused hypothesis on the signature was removed from the theorem that the members of the family are
-    conformal Killing and from the characterization of conformal Killing fields by conserved currents
+    unused hypothesis on the signature was removed from the theorem that the members of the family with A
+    antisymmetric are conformal Killing and from the characterization of conformal Killing fields by
+    conserved currents
     (statement 7); the docstrings were made exact about the class of tensor fields and about the dimensions
     in which statements 7 and 8 have content.
   2026-11-11: an AI-assisted prior-formalization search, by statement; its results are recorded in the
@@ -132,7 +133,7 @@ Review history
       library the two control theorems of ConformalKillingFlat/Control.lean were restated in the same way,
       with the proofs they already had (cubicField_ne_family and nullCubicField_ne_family hold for every A).
       No definition and no other compared statement changed.
-    - The Challenge docstring was shortened from about 160 to 120 lines: the detailed account of prior
+    - The Challenge docstring was shortened from about 160 to about 120 lines: the detailed account of prior
       formalizations, the list of what is not formalized and the notes on sources and proof were moved to
       README.md, where each already was, and one pointer was left for each. The second group of statements
       was retitled "Conserved currents: which fields give them"; the scope now says that none of
@@ -157,22 +158,46 @@ Review history
     added to README.md: the entry's relation to the two public four-dimensional Lean developments that state
     parts of this subject. No Lean file, no statement and no metadata field changed.
   2026-11-11: the author reviewed the nine compared statements against their informal descriptions
-    (recorded in formalization.yaml, review.notes). No Lean file changed after that review.
+    (recorded in formalization.yaml, review.notes).
+  2026-11-11: a final check of the public commit before submission, by AI-assisted readers, tried the
+    general sentences at small dimensions, with a degenerate metric and with a matrix A that is not
+    antisymmetric, and corrected prose only:
+    - the opening paragraph of Challenge.lean (the solutions are sums of the listed fields; the fields are
+      C^3; the tensor field of the identity is differentiable) and of README.md (the solutions are sums of
+      the listed fields; the tensor field of the identity is differentiable);
+    - the scope sentences of Challenge.lean and README.md on the tensor fields of statements 7 and 8 (they
+      range over the differentiable fields with the stated properties, not over all differentiable fields);
+    - sentences of the README section "Who this is for" (one had described statement 9 as holding in every
+      dimension and statement 5 as a statement for n >= 3), the MSC list under "Current literature", the
+      account of the test tensors when every entry of eta is zero, and the sentence that the members of the
+      family solve the equation (for A antisymmetric);
+    - in formalization.yaml: the sentence of the description on TauCeti (it has Killing fields on Riemannian
+      manifolds, not a special case of the currents), the account of isConformalKilling_family (A
+      antisymmetric), alignment notes 1, 3 and 9, wording of the fidelity and automation notes, and the
+      sentence of review.notes that records this check;
+    - a test file of atlas-lean, with a dilation example on the Euclidean plane, was added to the related
+      formalizations and to README.md;
+    - docstrings of the library and the header of Solution.lean (the carried definitions are definitionally
+      equal to the library's; the two solution spaces differ in the wording of their closure proofs);
+    - the line counts and line numbers in this file, which described the Challenge before its last edit.
+    The build, the axioms print and the comparator recorded above were re-run after these edits. No compared
+    statement, definition or proof changed: from the section "Definitions" to its end, Challenge.lean is
+    byte-identical to the version the author reviewed.
 
 Files (sha256)
-  4e290aa5b4f5d812bf5d99ea47c7d01042d50c96a4fcc78747ce875ac0b6c1ba  Challenge.lean
-  fb8c2785a36a72fdaba02fbb879422aeeb3a049e3a22ae2410a6e7b14d2447ab  Solution.lean
-  070bc2fdfafa44f902fb2ab071c0cbd5f9fa616fa738658f1396e1225feefbc5  ConformalKillingFlat.lean
-  ce958bbf1105a69f3d810271449ce716bff0e3889f29a03fec9c1b64a538225b  ConformalKillingFlat/Defs.lean
+  16e08ac3f3310c5b254d89bce799c5bd38404fdf4647e6f52859ad485622a806  Challenge.lean
+  bd26e78b08a4afa21632e5fd6dbe94d5ef00d96b9be6d55e4a419a80c98effd6  Solution.lean
+  46865ad06209c8a2c47d00b9968f9a787233b12a277f141203974be5aa530466  ConformalKillingFlat.lean
+  c06c4449ea1fbdb10e0dcbb95644a0719698ab2342272df5972983e0d96fb785  ConformalKillingFlat/Defs.lean
   f22344552f19c2f76f933ee052ceea19c32d32852b538e2b68f5003f14c4da73  ConformalKillingFlat/Calculus.lean
-  6e61d5b9919d3f83475d29e89944531317ab2399d85e13c3bdb72394ac4e7897  ConformalKillingFlat/Family.lean
+  ce4186134ef8d9b20b33c20f5485e994ba4c8c1948beaa676f5ec5ca2d5e030f  ConformalKillingFlat/Family.lean
   7c9022ebc76982fe841e4c89aa571caeed111e3c938b00ee475a5931e3a8e413  ConformalKillingFlat/Spaces.lean
   2227ec70f889f99d71b63a893d6117899e60a7886e8a63767cb829bb775b3107  ConformalKillingFlat/Rigidity.lean
   f083279c24a689e921e4b10627fc9a9b1af5b2f0221f66945486fd2ba3d61e0f  ConformalKillingFlat/Killing.lean
   e7bb7280c6580dd3f7269795831e74791df9c352293fea6f30b664787c7778bb  ConformalKillingFlat/Skew.lean
-  4fcd2e245fe08f60e07d1fee02c237954ba88af5b291ecfb3a424677ffbd610d  ConformalKillingFlat/Dimension.lean
+  5390dfbb9827a0f4017d86772fcfe69b8b20f759f8756a25ae598474be0e3136  ConformalKillingFlat/Dimension.lean
   08e177e08350192ac7566252680cd13aadd5339ce433dddd85951c39ce746463  ConformalKillingFlat/Control.lean
-  165b62b8c18f838e8e63a335a15e3e5a688a8b5a3f9f6d5472f1f37e8b711a2b  ConformalKillingFlat/Current.lean
+  7a45d115f6610007c9b9c60dac201d04100c5c9e334f1c7e077bbb054d2656d1  ConformalKillingFlat/Current.lean
   1bfe945843af9b00c495a1f91d18517c2ad3e7cb59dc493120921a748fdb6b00  Axioms.lean
   5028b92c9d0fcefa1e7317a766c7737b8d95a9dd2a47692bb25b0fbb3454c4f7  comparator.json
   0b632a4fae2f44d99df624696d6a64c203fcbba721945909350e03af6b0543dc  lakefile.toml

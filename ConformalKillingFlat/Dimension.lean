@@ -6,8 +6,9 @@ public import ConformalKillingFlat.Skew
 /-!
 # Dimension counts
 
-The parametrization of the explicit family by `ℝⁿ × skew n × ℝ × ℝⁿ` is linear and (for `n ≥ 1`)
-injective; by the classification its range is the space of conformal Killing fields for `n ≥ 3`.
+The parametrization of the explicit family by `ℝⁿ × skew n × ℝ × ℝⁿ` is linear and (for `n ≥ 1`
+and a metric with entries `±1`) injective; by the classification its range is the space of
+conformal Killing fields for `n ≥ 3`.
 The Killing subfamily is parametrized by `ℝⁿ × skew n` in every dimension. Both parametrizations
 are linear equivalences onto the solution spaces (`paramEquiv`, `paramEquivK`), so both spaces are
 finite-dimensional (`finite_conformalKilling`, `finite_killing`).

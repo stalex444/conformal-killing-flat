@@ -4,11 +4,12 @@ Kernel-checked, in Lean 4 + Mathlib. On `ℝⁿ` with a diagonal metric `η` who
 (every signature), a covector field `ω` is **conformal Killing** when it is `C³` and
 `∂_i ω_j + ∂_j ω_i = 2 φ η_ij` for some function `φ`, and **Killing** when it is `C³` and
 `∂_i ω_j + ∂_j ω_i = 0`. This repository proves that for `n ≥ 3` the conformal Killing fields are
-exactly the translations, the rotations, the dilation and the special conformal fields, a real
-vector space of dimension `(n + 1)(n + 2)/2`; that in every dimension the Killing fields are
-exactly the translations and rotations, a space of dimension `n (n + 1)/2`; that the current
-`T·ω` of a symmetric tensor field satisfies `div (T·ω) = (div T)·ω + φ · tr_η T`; and that
-conservation of these currents characterizes the two classes of fields.
+exactly the sums of a translation, a rotation, a multiple of the dilation and a special conformal
+field, a real vector space of dimension `(n + 1)(n + 2)/2`; that in every dimension the Killing
+fields are exactly the sums of a translation and a rotation, a space of dimension `n (n + 1)/2`;
+that for a conformal Killing field `ω` with factor `φ` the current `T·ω` of a differentiable
+symmetric tensor field satisfies `div (T·ω) = (div T)·ω + φ · tr_η T`; and that conservation of
+these currents characterizes the two classes of fields.
 
 Statements 1–4 are classical (the classification of the conformal Killing fields of `ℝ^{p,q}` for
 `p + q ≥ 3`, which is the infinitesimal counterpart of Liouville's theorem on conformal maps, and
@@ -34,17 +35,20 @@ Two public Lean developments state parts of this subject in four dimensions:
 - [`openai/math`](https://github.com/openai/math/blob/4eaee87548250b2682affda7d05d947c05554bae/lean/OAI/Analysis/TemperedDistribution/ConformalIdentities.lean)
   proves the identity of statement 6 for `n = 4` and signature `(1,3)`.
 
-In neither was a statement found of which fields solve the equation, of how many there are, of
-the special conformal fields, or of the converse of the current statement (search of 2026-11-11;
-"Prior formalization" below says where it looked and what it could not search). Statements 1–5
-give the solutions and their number in every dimension `n ≥ 3` and every signature, and
-statements 6–9 give the identity and its converse in every dimension, as statements that import
-Mathlib only and that such a development can be checked against.
+In neither was there found a classification of the solutions (a statement that the fields shown to
+solve the equation are all of them), a count of them, the special conformal fields, or the
+converse of the current statement (search of 2026-11-11; "Prior formalization" below says where
+it looked and what it could not search). Statements 1–4 give the solutions and their number: the
+conformal Killing fields for `n ≥ 3` and every signature, the Killing fields in every dimension.
+Statement 5 shows that `n ≥ 3` cannot be weakened to `n ≥ 2` in statement 1. Statements 6–8 give
+the identity and its converse in every dimension, and statement 9 separates the two classes for
+`n ≥ 1`. All nine import Mathlib only, so such a development can be checked against them.
 
 The entry may also serve formalizations of conformal field theory, where `(n + 1)(n + 2)/2` is the
-dimension of the conformal algebra (the algebra itself is not formalized here), and work on
-Killing fields in Lean's differential geometry, which at present treats Riemannian manifolds in
-general and not the flat classification.
+dimension of the conformal algebra `so(p+1, q+1)` (the algebra itself is not formalized here), and
+the Lean developments of Killing fields named under "Prior formalization" (atlas-lean, TauCeti),
+which treat Killing fields on Riemannian manifolds (atlas-lean also on Euclidean space) and in
+which the flat classification was not found.
 
 ## The compared statements (namespace `FlatConformalKilling`)
 
@@ -103,7 +107,7 @@ the only `C³` fields with that property.
 
 **Classification (statements 1–5).**
 
-1. *The family solves the equation.* A direct computation of the derivatives of
+1. *The family solves the equation.* For `A` antisymmetric, a direct computation of the derivatives of
    `family η a A lam b` (`partialD_family`, `isConformalKilling_family`); the conformal factor is
    `lam + 2 b·x`. No hypothesis on `η` is used here.
 2. *Second derivatives.* For a `C³` solution, differentiating the equation and using the symmetry
@@ -146,7 +150,8 @@ other direction, a constant tensor field `M` is divergence-free and its current 
 `η`-trace-free when `i ≠ j`, and in statement 8 it is used for all `i`, `j`. Taking
 `M = η_j E_ii − η_i E_jj`, which is `η`-trace-free for every `η`, gives
 `η_j ∂_i ω_i = η_i ∂_j ω_j`, so the diagonal entries of `∂ω` are a common multiple of the entries
-of `η` (an index with `η_i = 0` is treated separately, with `M = 2 E_ii`). Statement 9 is the computation `∂_i ω_j = η_ij` for the dilation, whose factor is `1`.
+of `η` (when every entry of `η` is zero, `M = 2 E_ii` gives `∂_i ω_i = 0` instead). Statement 9 is
+the computation `∂_i ω_j = η_ij` for the dilation, whose factor is `1`.
 
 The proofs were written from a plan of this classical argument, not from the text of one source;
 "Relation to the literature" says how they compare with the sources.
@@ -164,7 +169,8 @@ The proofs were written from a plan of this classical argument, not from the tex
 - The numbers in statements 3 and 4 are dimensions of real vector spaces (`Module.finrank`, with
   `Module.Finite` stated alongside). No Lie bracket is defined and no isomorphism with an
   orthogonal Lie algebra is stated.
-- In statements 7 and 8 the tensor fields range over all differentiable fields. Constant tensor
+- In statements 7 and 8 the tensor fields range over all differentiable fields with the stated
+  properties (symmetric and divergence-free, and `η`-trace-free in statement 7). Constant tensor
   fields are admitted and already suffice for the direction from conserved currents to the
   equation, which is therefore a pointwise fact of linear algebra. Nothing is said about
   compactly supported tensor fields. None of statements 6–9 depends on statements 1–5; statements 6–8
@@ -239,7 +245,7 @@ The proofs were written from a plan of this classical argument, not from the tex
   it is not formalized here. Statements 1 and 3 are its infinitesimal counterpart, in every dimension `n ≥ 3` and
   every signature.
 - **Current literature.** The subject is conformal geometry of flat pseudo-Euclidean space and
-  its use in field theory (MSC 53C18, 53B30, 81T40, 70S10). The classification and the dimension
+  its use in field theory (MSC 53C18, 53B30, 35N05, 70S10, 81T40, 83A05). The classification and the dimension
   `(d+1)(d+2)/2` are the starting point of conformal field theory in dimension `d ≥ 3`:
   D. Poland, S. Rychkov and A. Vichi, *The conformal bootstrap: Theory, numerical techniques,
   and applications*, Rev. Mod. Phys. 91 (2019), 015002 (read as arXiv:1805.04405v3), §III.A,
@@ -298,7 +304,11 @@ commit; what it says about the search and about contact is the author's account.
   energy-momentum tensor of the scalar wave equation on Minkowski space, the divergence of the
   current of a field and its vanishing for a Killing field
   (`v1/Atlas/IntroductionToPartialDifferentialEquations/code/CM14/WaveEnergy.lean`, a file in
-  which other declarations are left unproved).
+  which other declarations are left unproved). A test file at the same commit,
+  `MathlibExtTest/Geometry/Manifold/Riemannian/Killing.lean`, checks on the Euclidean plane that a
+  translation and a rotation are Killing (`trans_killing`, `rot_killing`) and, in unnamed
+  examples, that the dilation and a shear are not; the dilation example is the case `n = 2`,
+  Euclidean, of the second half of statement 9.
   [`TauCetiProject/TauCeti`](https://github.com/TauCetiProject/TauCeti/tree/1e668f5e55bc20f2eb87f4ba49b48833470290d1/TauCeti/Geometry/Manifold/Riemannian/Killing):
   the general theory of Killing fields on Riemannian manifolds.
 - **Not found in any of these:** that every Killing field of flat space is affine, or that every

@@ -20,8 +20,9 @@ A covector field `ω` on `ℝⁿ` with a diagonal metric `η` (entries `±1`, an
 
 Main results (namespace `ConformalKillingFlat`):
 
-* `isConformalKilling_family`: every member of the explicit family (translations, rotations,
-  dilation, special conformal fields) is conformal Killing; no hypothesis on `η`.
+* `isConformalKilling_family`: every member of the explicit family with `A` antisymmetric
+  (translations, rotations, dilation, special conformal fields) is conformal Killing; no
+  hypothesis on `η`.
 * `isConformalKilling_iff`: for `n ≥ 3` and every signature, the conformal Killing fields are
   exactly the explicit family.
 * `isKilling_iff`: in every dimension the Killing fields are exactly the affine fields `a + A x`
@@ -46,9 +47,11 @@ Main results (namespace `ConformalKillingFlat`):
 * `currents_conserved_iff_conformalKilling`: among `C³` fields, the currents `T·ω` of every
   differentiable, symmetric, divergence-free, `η`-trace-free tensor field are divergence-free iff
   `ω` is conformal Killing (no hypothesis on `η`); `currents_conserved_iff_killing`: without the
-  trace condition, iff Killing. Constant tensor fields are admitted and already suffice for the forward
-  directions; the first statement has content from `n = 2` on, the second from `n = 1`.
-* `dilation_isConformalKilling_not_isKilling`: the dilation separates the two classes for `n ≥ 1`.
+  trace condition, iff Killing. Constant tensor fields are admitted and already suffice for the
+  forward directions. For a metric with entries `±1` the first statement has content from `n = 2`
+  on; the second has content from `n = 1`.
+* `dilation_isConformalKilling_not_isKilling`: for `n ≥ 1` and a metric with entries `±1`, the
+  dilation separates the two classes.
 
 Scope. "Every signature" means a diagonal metric with entries `±1`; a general nondegenerate
 constant metric is reached by a linear change of coordinates that is not formalized here. The

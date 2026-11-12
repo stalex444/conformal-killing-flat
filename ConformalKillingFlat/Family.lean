@@ -5,8 +5,9 @@ public import ConformalKillingFlat.Calculus
 /-!
 # The explicit family and its derivatives
 
-Translations `a`, rotations `A` (antisymmetric), the dilation `lam`, and the special conformal
-fields `b`, for a diagonal metric `η` in any dimension.
+Translations `a`, rotations `A` (antisymmetric in the classification; the family is defined for
+any real matrix), the dilation `lam`, and the special conformal fields `b`, for a diagonal metric
+`η` in any dimension.
 -/
 
 namespace ConformalKillingFlat

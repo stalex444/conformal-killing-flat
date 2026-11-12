@@ -11,12 +11,14 @@ the identical definitions, by transfer from the proof library (`ConformalKilling
 the modules under `ConformalKillingFlat/`, namespace `ConformalKillingFlat`).
 
 The definitions carried by `Challenge.lean` (namespace `FlatConformalKilling`) are repeated here
-verbatim. Each has the same body as the library's definition of the same name, so the two unfold
-to the same term: the section "The carried definitions are the library's" records this by `rfl`,
-and each compared statement is closed by the library theorem directly.
+verbatim. Each is definitionally equal to the library's definition of the same name; the bodies
+are the same except for the closure proofs of the two solution spaces, which are written out here
+with Mathlib lemmas only. The section "The carried definitions are the library's" records the
+equalities by `rfl` (for all but the abbreviations `Vec` and `Tens`), and each compared statement
+is closed by the library theorem directly.
 
 * Statement 1: `ConformalKillingFlat.isConformalKilling_iff` (`Rigidity`). The members of the
-  family are conformal Killing by a direct computation of their derivatives
+  family with `A` antisymmetric are conformal Killing by a direct computation of their derivatives
   (`isConformalKilling_family`). Conversely, for a `C³` solution the second derivatives of `ω`
   are determined by the first derivatives of the conformal factor `φ` (`second_deriv`); the
   symmetry of third derivatives then gives an algebraic identity on the Hessian of `φ`, which

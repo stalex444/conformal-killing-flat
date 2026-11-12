@@ -6,12 +6,13 @@ public import Mathlib
 # Conformal Killing fields of flat space: classification, dimension, conserved currents
 
 On `ℝⁿ` with a diagonal metric `η` whose entries are `±1`, a covector field `ω` is *conformal
-Killing* when `∂_i ω_j + ∂_j ω_i = 2 φ η_ij` for some function `φ`, and *Killing* when
-`∂_i ω_j + ∂_j ω_i = 0`. For `n ≥ 3` and every signature the conformal Killing fields are exactly
-the translations, the rotations, the dilation and the special conformal fields, and they form a
-real vector space of dimension `(n + 1)(n + 2)/2`; in every dimension the Killing fields are
-exactly the translations and rotations, a space of dimension `n (n + 1)/2`. For a conformal
-Killing field `ω` with factor `φ`, the current `T·ω` of a symmetric tensor field `T` satisfies
+Killing* when it is `C³` and `∂_i ω_j + ∂_j ω_i = 2 φ η_ij` for some function `φ`, and *Killing*
+when it is `C³` and `∂_i ω_j + ∂_j ω_i = 0`. For `n ≥ 3` and every signature the conformal
+Killing fields are exactly the sums of a translation, a rotation, a multiple of the dilation and
+a special conformal field, and they form a real vector space of dimension `(n + 1)(n + 2)/2`; in
+every dimension the Killing fields are exactly the sums of a translation and a rotation, a space
+of dimension `n (n + 1)/2`. For a conformal Killing field `ω` with factor `φ`, the current `T·ω`
+of a differentiable symmetric tensor field `T` satisfies
 `div (T·ω) = (div T)·ω + φ · tr_η T`, and conservation of these currents characterizes the two
 classes of fields.
 This entry compares exactly these nine statements.
@@ -85,12 +86,12 @@ Scope.
 * The numbers in statements 3 and 4 are dimensions of real vector spaces (`Module.finrank`, with
   finite-dimensionality stated alongside). No Lie bracket is defined and no isomorphism with an
   orthogonal Lie algebra is stated.
-* In statements 7 and 8 the tensor fields range over all differentiable fields; constant tensor
+* In statements 7 and 8 the tensor fields range over all differentiable fields with the stated
+  properties (symmetric and divergence-free, and `η`-trace-free in statement 7); constant tensor
   fields are admitted and already suffice for the directions from conserved currents to the
   equation, which are therefore pointwise facts of linear algebra. Nothing is said about compactly
-  supported tensor fields. None of statements 6–9 depends on statements 1–5; statements 6–8 hold in
-  every dimension and statement 9 for `n ≥ 1`. The directions from the equation to conserved currents hold for every
-  differentiable tensor field.
+  supported tensor fields. None of statements 6–9 depends on statements 1–5; statements 6–8 hold
+  in every dimension and statement 9 for `n ≥ 1`.
 * Statement 7 has content from `n = 2` on: for `n ≤ 1` and a metric with entries `±1`, both sides
   hold for every `C³` field. Statement 8 has content from `n = 1` on.
 * Statement 5 is a single example in the Euclidean plane. It excludes `family η a A lam b` for

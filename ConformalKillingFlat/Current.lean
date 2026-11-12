@@ -15,10 +15,11 @@ For a tensor field `T` and a covector field `ω` on `ℝⁿ` the current is `J^i
   tensor field against it is conserved. No hypothesis on `η`.
 * `currents_conserved_iff_killing`: among `C³` covector fields, a field is Killing iff the current
   of every differentiable, symmetric, divergence-free tensor field against it is conserved.
-* `dilation_isConformalKilling_not_isKilling`: the dilation field separates the two classes in
-  every dimension `n ≥ 1`.
+* `dilation_isConformalKilling_not_isKilling`: for a metric with entries `±1`, the dilation field
+  separates the two classes in every dimension `n ≥ 1`.
 
-The tensor fields in the two characterizations are all differentiable fields `T : ℝⁿ → Matrix`;
+The tensor fields in the two characterizations are all differentiable fields `T : ℝⁿ → Matrix`
+with the stated properties (symmetric and divergence-free, and trace-free in the first);
 constant tensor fields are admitted and already suffice for the forward directions (conserved
 currents imply the equation), which are therefore pointwise facts of linear algebra. Nothing is
 said about compactly supported or decaying tensor fields. The conformal statement has content from

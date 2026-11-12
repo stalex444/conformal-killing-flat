@@ -59,9 +59,10 @@ project:
     related_formalizations: the identity (6), with its corollary for
     conserved trace-free tensors, is formalized for n = 4 and signature
     (1,3), for tensors of tempered distributions, in
-    github.com/openai/math; special cases are in the Yang-Mills release
-    github.com/yang-mills-group/OpenAI-YM-20261028, in
-    facebookresearch/atlas-lean and in TauCetiProject/TauCeti. In a dated
+    github.com/openai/math; special cases of the currents are in the
+    Yang-Mills release github.com/yang-mills-group/OpenAI-YM-20261028 and
+    in facebookresearch/atlas-lean, and Killing fields on Riemannian
+    manifolds are in atlas-lean and in TauCetiProject/TauCeti. In a dated
     search no formalization was found of (1)-(5) or of the direction of (7)
     and (8) from conserved currents to the equation. Application (cited; no
     compared statement asserts it): for n = 4 and a Lorentzian signature
@@ -442,7 +443,7 @@ related_formalizations:
     note: >-
       RELATED, NOT THESE THEOREMS. Read on 2026-11-11 at commit
       18d1aa399b6ebaa8cd9c4a48795b43f6734c3785 (declaration outlines of the
-      two files named here).
+      three files named here).
       MathlibExt/Geometry/Manifold/Riemannian/Killing/VectorSpace.lean:
       Killing vector fields of a Riemannian manifold, specialized to a
       finite-dimensional real inner product space
@@ -460,11 +461,17 @@ related_formalizations:
       current of a vector field and its vanishing when the deformation
       tensor vanishes, an instance of statement 6 for one tensor and
       Killing fields; other declarations of that file are left unproved.
+      MathlibExtTest/Geometry/Manifold/Riemannian/Killing.lean, a test file
+      at the same commit, on the Euclidean plane: a translation and a
+      rotation are Killing (trans_killing, rot_killing), and unnamed
+      examples check that the dilation and a shear are not; the dilation
+      example is the case n = 2, Euclidean, of the second half of
+      statement 9.
       The Killing file was added in commit
       6a576f39873cb4e541c1e6a460a409f4b848f43d, dated 2026-10-28; the
       wave-equation file has one commit in the history read,
-      9c4f77036677e8aa896a0c1af4662384bb41ab55, dated 2026-08-24. No
-      conformal Killing field was found in the repository by the search
+      9c4f77036677e8aa896a0c1af4662384bb41ab55, dated 2026-08-24. Nothing
+      named or stated as conformal Killing was found in the repository by the search
       of 2026-11-11 (Sourcegraph's index of Lean files; the coverage is in
       this repository's README.md).
       Contact (the author's account, as in the note on openai/math): found by
@@ -537,7 +544,8 @@ status:
     partialD, IsConformalKilling, IsKilling, family, conformalKilling,
     killing, divT, current, divJ, traceEta. Proved in the repository, not
     compared (namespace ConformalKillingFlat): every member of the family
-    is conformal Killing, with no hypothesis on eta
+    with an antisymmetric matrix A is conformal Killing, with no
+    hypothesis on eta
     (isConformalKilling_family); the linear equivalences of the solution
     spaces with their parameter spaces (paramEquiv, for n >= 3 and entries
     +1 or -1; paramEquivK, every n); the dimension n(n-1)/2 of the
@@ -570,8 +578,9 @@ automation:
         against lake build, in separate sessions for the classification
         and for the currents; an AI-assisted adversarial review of each
         part, which tested the statements with compiled probe files; an
-        AI-assisted prior-formalization search (which found the four
-        developments recorded under related_formalizations); AI-assisted
+        AI-assisted prior-formalization search (which found the openai/math
+        file, atlas-lean and TauCeti; the Yang-Mills release was already
+        known to the author's project); AI-assisted
         assembly of the Challenge, the Solution and this metadata, with an
         AI-assisted reading of the sources recorded above.
       cost:
@@ -589,7 +598,7 @@ automation:
         the signature was not needed in statement 7, and the statement and
         its proof were changed accordingly; an unused signature hypothesis
         was also removed from the library theorem that the members of the
-        family are conformal Killing. The sources were read after the Lean
+        family with A antisymmetric are conformal Killing. The sources were read after the Lean
         was written, and the account of them in the Challenge docstring,
         the README and this file was written from that reading.
     - method: "manual"
@@ -646,8 +655,8 @@ fidelity:
     field satisfies the equation, so the equivalence fails there as well
     (not proved in the repository). (f) Statements 3 and 4 are dimensions of real vector
     spaces of solutions (Module.finrank, with Module.Finite stated
-    alongside, since Module.finrank is 0 by convention for a module that is
-    not finite); the divisions of natural numbers are exact. The sources
+    alongside, since Module.finrank is 0 by convention for a vector space that
+    is not finite-dimensional); the divisions of natural numbers are exact. The sources
     count generators (Ginsparg; Qualls), bound the number of independent
     Killing fields (Blau) or give the dimension of the conformal group
     (Poland, Rychkov and Vichi). No Lie bracket is defined and no
@@ -678,7 +687,8 @@ fidelity:
     hypothesis that omega is C^3 stands outside the equivalence because it
     is part of the definitions of the two classes. For n <= 1 and a metric
     with entries 1 or -1 both sides of statement 7 hold for every C^3
-    field. That direction was not found stated in the sources read; it is
+    field. The direction from conserved currents to the equation was
+    not found stated in the sources read; it is
     not claimed as new. (j) Statement 9: the field omega_j = eta_j x_j is
     the lowered form of the dilation X = x; its conformal factor is 1; the
     hypothesis n >= 1 is needed for "not Killing". (k) The proofs were
@@ -736,8 +746,12 @@ review:
     file or README.md gives an account of the search or of contact with
     another development, it is the author's account from those records.
     The author reviewed statements 1-9 against their informal
-    descriptions on 2026-11-11; they are unchanged since. Not
-    peer-reviewed.
+    descriptions on 2026-11-11; they are unchanged since. A final
+    check of the public commit afterwards, by AI-assisted readers,
+    corrected prose only (in Challenge.lean, README.md, this file,
+    docstrings of the library and of Solution.lean, and the build record
+    in BUILD.txt; BUILD.txt lists the corrections); no compared
+    statement, definition or proof changed. Not peer-reviewed.
 
 alignment:
   namespace: "FlatConformalKilling"
@@ -746,7 +760,7 @@ alignment:
       lean: "FlatConformalKilling.conformalKilling_iff_family"
       module: "Solution"
       status: "proved"
-      note: "For n >= 3 and a diagonal metric with entries +1 or -1, a covector field is conformal Killing (C^3) if and only if it is a member of the explicit family: translations, rotations, the dilation, special conformal fields."
+      note: "For n >= 3 and a diagonal metric with entries +1 or -1, a covector field is conformal Killing (C^3) if and only if it is a member of the explicit family with an antisymmetric matrix A: translations, rotations, the dilation, special conformal fields."
     - source: "Schottenloher 2008, section 1.4.1 (the fields with conformal Killing factor zero); Blau, Lecture Notes on General Relativity, (9.81)-(9.82)"
       lean: "FlatConformalKilling.killing_iff_affine"
       module: "Solution"
@@ -756,7 +770,7 @@ alignment:
       lean: "FlatConformalKilling.finrank_conformalKilling"
       module: "Solution"
       status: "proved"
-      note: "For n >= 3 the conformal Killing fields form a finite-dimensional real vector space of dimension (n+1)(n+2)/2."
+      note: "For n >= 3 and a diagonal metric with entries +1 or -1, the conformal Killing fields form a finite-dimensional real vector space of dimension (n+1)(n+2)/2."
     - source: "Blau, Lecture Notes on General Relativity, (14.4) and the sentence after it on n-dimensional Minkowski space"
       lean: "FlatConformalKilling.finrank_killing"
       module: "Solution"
@@ -786,7 +800,7 @@ alignment:
       lean: "FlatConformalKilling.dilation_conformalKilling_not_killing"
       module: "Solution"
       status: "proved"
-      note: "For n >= 1 the dilation omega_j = eta_j x_j is conformal Killing and is not Killing."
+      note: "For n >= 1 and a diagonal metric with entries +1 or -1, the dilation omega_j = eta_j x_j is conformal Killing and is not Killing."
 
 acknowledgements: >-
   Built on Mathlib and the Lean 4 toolchain; thanks to the leanprover
