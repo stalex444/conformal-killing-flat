@@ -23,14 +23,17 @@ Mathematical Introduction to Conformal Field Theory*, 2nd ed., 2008, Theorem 1.7
 infinitesimal counterpart of Liouville's theorem on conformal maps. Statements 2 and 4 are the
 Killing fields of flat space and their number (Schottenloher, §1.4.1; M. Blau, *Lecture Notes on
 General Relativity*, (9.81)–(9.82) and (14.4)). Statement 6 is the standard identity behind the
-conserved currents of a trace-free stress tensor (Blau, (10.11)–(10.16); D. Simmons-Duffin, *The
-Conformal Bootstrap* (TASI 2015 lectures), arXiv:1602.07982, (18)–(23)). Statements 5 and 9 are
-standard examples: in the Euclidean plane the conformal Killing fields are the holomorphic
-functions (Schottenloher, §1.4.2), and the dilation has a constant nonzero conformal factor. In
-statements 7 and 8 the direction from the equation to conserved currents is statement 6. The
-direction from conserved currents to the equation was not found stated in the sources read for
-this entry; it is elementary, it is proved here by testing on constant tensor fields, and it is
-not claimed as new. No statement here is claimed as a new theorem.
+conserved currents of a trace-free stress tensor (Blau, §10.2, (10.14)–(10.16), the computation
+displayed in (10.16) on a general metric, for a conserved trace-free `T`; Ginsparg, §2.2, the trace
+term printed in two dimensions, for a conserved `T`; D. Simmons-Duffin, *TASI Lectures on the
+Conformal Bootstrap*, arXiv:1602.07982 (published as *The Conformal Bootstrap*), (18)–(23), the
+product rule for a conserved `T`, without the trace term). Statements 5 and 9 are standard examples:
+in the Euclidean plane the conformal Killing fields are the holomorphic functions (Schottenloher,
+§1.4.2), and the dilation has a constant nonzero conformal factor. In statements 7 and 8 the
+direction from the equation to conserved currents is statement 6. The direction from conserved
+currents to the equation was not found stated in the sources read for this entry; it is elementary,
+it is proved here by testing on constant tensor fields, and it is not claimed as new. No statement
+here is claimed as a new theorem.
 
 Conventions. Points of `ℝⁿ` and covectors are functions `Fin n → ℝ` (`Vec n`); a field is a
 function `ω : Vec n → Vec n`, read as the covector field with components `ω_j`. The partial

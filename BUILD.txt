@@ -204,3 +204,39 @@ Files (sha256)
   8dc8d6f560141069d9073e370611716ef77ada0da8ffa37e2149f44b2e63ac7a  lean-toolchain
   70c8f16d3054930e8e62698facd3246e58a49025367c83bc3c6ebc3edf8e58ee  lake-manifest.json
   (README.md, formalization.yaml, LICENSE, .github/ are hashed at commit time; see git.)
+
+Version 2 record, 2026-11-13 (prose only; the version 1 record above is unchanged)
+  Changed files: README.md; Challenge.lean (its opening docstring only); formalization.yaml; BUILD.txt (this
+    record); SHA256SUMS (the hash of Challenge.lean). No other file changed.
+  What changed: the description of two sources cited for statement 6 (Blau's notes: Section 10.2,
+    (10.14)-(10.16), with (10.11)-(10.12) of Section 10.1 as the Killing case; Simmons-Duffin's lectures:
+    the product rule (19) for a conserved T, without the trace term); Ginsparg, Section 2.2, added where the
+    trace term is cited; in README.md a version note and, under "Prior formalization", one sentence on a
+    separate proof of a case of statement 6 (an add-on library by the same author, not part of this entry);
+    in formalization.yaml one sentence of review.notes and the version 2 revision recorded in
+    automation (tool_setup and wall_time).
+  Lean unchanged: with comments and docstrings removed, every .lean file is identical to version 1 (commit
+    ef2fbb34); Challenge.lean differs from version 1 in its opening docstring only, and the other thirteen
+    .lean files are byte-identical to version 1. Solution.lean, regenerated from Challenge.lean by the
+    script described above, is byte-identical to version 1.
+  Build: lake build ConformalKillingFlat Challenge Solution -> Build completed successfully (8946 jobs),
+    exit 0, 2026-11-13 19:47-19:48 UTC, after the last edit to Challenge.lean. Only warnings: the 9
+    'declaration uses sorry' warnings of Challenge.lean (lines 259, 268, 277, 285, 294, 306, 319, 329, 336).
+  #print axioms (lake env lean Axioms.lean), 2026-11-13: exit 0; the 30 declarations listed above, each
+    [propext, Classical.choice, Quot.sound].
+  Comparator: lake comparator --inadvisably-no-sandbox (toolchain bin with nanoda_bin on PATH), from the
+    package root, 2026-11-13 19:48-19:50 UTC, once, after the last edit to Challenge.lean, on Challenge.lean
+    dd8a59a5df2d86d848af1b26f9f66b470c58eadbdedc7eb2f04517d871f51c27, Solution.lean and comparator.json as
+    hashed in the version 1 block above: "Build completed successfully (8943 jobs) / ... / nanoda kernel
+    accepts the solution / Lean default kernel accepts the solution / Your solution is okay!", exit 0.
+  Statement identity (scripted): the definitions section is byte-identical in the two files; the nine
+    docstring-plus-signature blocks are identical, in comparator order; 9 theorems, 13 definitions; the
+    sentence "This entry compares exactly these nine statements." is present.
+  Metadata: formalization.yaml validates against the v0.4 schema (0 errors). The registry contract
+    (scripts.submission_contract at PalomarSubmission 14aa8d6b) loads it and derives result_origin
+    source-based (9 sources, 6 related formalizations); the non-executing Lean source check
+    (scripts.source_requirements, same commit) on a copy of the tracked files: 14 files, 0 issues.
+  Challenge.lean is 343 lines and 20,628 bytes (version 1: 340 lines and 20,351 bytes); the three added
+    lines are in the opening docstring.
+  Files (sha256), version 2: Challenge.lean dd8a59a5df2d86d848af1b26f9f66b470c58eadbdedc7eb2f04517d871f51c27;
+    every other file in the version 1 block is unchanged. SHA256SUMS regenerated.

@@ -1,5 +1,15 @@
 # Conformal Killing fields of flat space: classification, dimension counts, conserved currents
 
+**Version 2** of the registered entry PALOMAR-2026-11-12-000002 (version 1: commit `ef2fbb34`).
+Version 2 changes prose only, in this file, the opening docstring of `Challenge.lean`,
+`formalization.yaml` and `BUILD.txt` (with the hash of `Challenge.lean` in `SHA256SUMS`). Version 1
+described two sources cited for statement 6, Blau's notes and Simmons-Duffin's lectures, more
+strongly than they print; their description is corrected (see "Relation to the literature").
+Ginsparg's §2.2 is added as a place where the trace term is printed, and one sentence is added
+under "Prior formalization" on a separate proof of a case of statement 6 in an add-on library by
+the same author. No statement, proof or definition changed: the nine compared statements, their
+proofs and the Lean definitions are those of version 1.
+
 Kernel-checked, in Lean 4 + Mathlib. On `ℝⁿ` with a diagonal metric `η` whose entries are `±1`
 (every signature), a covector field `ω` is **conformal Killing** when it is `C³` and
 `∂_i ω_j + ∂_j ω_i = 2 φ η_ij` for some function `φ`, and **Killing** when it is `C³` and
@@ -217,13 +227,20 @@ The proofs were written from a plan of this classical argument, not from the tex
 - **Statement 5.** In the Euclidean plane the conformal Killing fields are the holomorphic
   functions (Schottenloher, §1.4.2; Ginsparg, §1.2); `z³` is one that is not of degree at most
   two.
-- **Statement 6 and one direction of statements 7 and 8.** Blau, (10.11)–(10.12) and
-  (10.15)–(10.16): for a symmetric `T` and a conformal Killing vector `C` with
-  `∇_μ C_ν + ∇_ν C_μ = 2σ g_{μν}`, `∇_μ (T^{μν} C_ν) = (∇_μ T^{μν}) C_ν + σ T^{μν} g_{μν}`.
-  D. Simmons-Duffin, *The Conformal Bootstrap* (TASI 2015 lectures; read as arXiv:1602.07982,
-  where the title is *TASI Lectures on the Conformal Bootstrap*), (18)–(23), does the same
-  computation in flat Euclidean space and presents the Killing and conformal Killing equations as
-  the conditions under which the currents are conserved.
+- **Statement 6 and one direction of statements 7 and 8.** Blau, §10.2, (10.14)–(10.16): for a
+  conformal Killing vector `C` with `∇_μ C_ν + ∇_ν C_μ = 2σ g_{μν}` and a conserved, symmetric,
+  trace-free `T`, the computation displayed in (10.16), on a general metric, writes the product
+  rule with the term `(∇_μ T^{μν}) C_ν` and reduces the second term to `σ T^{μν} g_{μν}`, the two
+  hypotheses on `T` being applied along the way; §10.1, (10.11)–(10.12), is the Killing case, with
+  no trace term. Ginsparg, §2.2, prints the divergence of the current `T_{μν} ε^ν` as
+  `½ T^μ_μ (∂·ε)`, in two dimensions and for a conserved symmetric `T`, where it vanishes because
+  `T` is traceless. D. Simmons-Duffin, *The Conformal Bootstrap* (TASI 2015 lectures; read as
+  arXiv:1602.07982, where the title is *TASI Lectures on the Conformal Bootstrap*), (18)–(23),
+  writes the product rule (19) for the conserved stress tensor (symmetric, as the last step of
+  (19) uses) in flat Euclidean space, without the trace term, and presents the Killing and
+  conformal Killing equations as the conditions under which the currents are conserved. No source
+  read states the identity in the generality of statement 6 (pointwise, with no conservation or
+  trace hypothesis on `T`) as a standalone formula.
 - **The other direction of statements 7 and 8** (conserved currents imply the equation) was not
   found stated in the sources read for this entry. Simmons-Duffin's text calls the equation a
   "requirement" but proves only that it suffices. The direction is elementary: it is the
@@ -334,7 +351,13 @@ complete. The Yang–Mills release is different: before this library was written
 project had read `YM/Next/MAXWELL/Current.lean` and `YM/Work/A01/Conserve.lean` and had built a
 separate add-on library on the release's definitions (not part of this repository). This
 repository does not import the release and does not use its definitions. All four are recorded
-in `formalization.yaml` with the relationship "other", not "independent".
+in `formalization.yaml` with the relationship "other", not "independent". Separately, the case of
+the identity of statement 6 with `n = 4`, the Euclidean metric and a conserved `T` is proved, in
+correlation functions, on the definitions of the Lean release `yang-mills-group/OpenAI-YM-20261028`,
+in that add-on library, now public as
+[`stalex444/yang-mills-conformal-current`](https://github.com/stalex444/yang-mills-conformal-current/tree/41856c2fc7c1da52ba1fe3e37d6b28e9def96956);
+it is not part of this entry, it is not compared here, and it
+is not among the related formalizations recorded in `formalization.yaml`.
 
 No formalization of statements 1–5, or of the direction of statements 7 and 8 from conserved
 currents to the equation, was found on 2026-11-11 in: Mathlib (sources at the pin; names on
